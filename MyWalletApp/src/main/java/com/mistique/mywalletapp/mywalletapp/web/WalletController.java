@@ -34,8 +34,20 @@ public class WalletController {
         service.create(name, 0);
     }
 
+    @RequestMapping(value = "/update/{id}", method = RequestMethod.PUT)
+    public void updateWallet(@PathVariable("id") String id, @RequestParam(value = "name", required = false) String name, @RequestParam(value = "balance", required = false) String balance){
+        int idInt = Integer.parseInt(id);
+        if(name!=null){
+            service.update(idInt, name);
+        }
+        if(balance!=null){
+            double doubleBalance = Double.parseDouble(balance);
+            service.update(idInt, doubleBalance);
+        }
+    }
+
     @ExceptionHandler
     ResponseEntity<WalletsError> handleException(NumberFormatException e) {
-        return new ResponseEntity<>(new WalletsError(HttpStatus.BAD_REQUEST.value(), "Unable to parse employee id."), HttpStatus.BAD_REQUEST);
+        return new ResponseEntity<>(new WalletsError(HttpStatus.BAD_REQUEST.value(), "Unable to parse something."), HttpStatus.BAD_REQUEST);
     }
 }

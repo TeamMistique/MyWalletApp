@@ -54,7 +54,8 @@ public class WalletSqlRepository extends AbstractGenericRepository<Wallet> imple
         try (Session session = factory.openSession()) {
             session.beginTransaction();
             Wallet wallet = session.get(Wallet.class, id);
-            wallet = entity;
+            wallet.setName(entity.getName());
+            wallet.setBalance(entity.getBalance());
             session.getTransaction().commit();
         } catch (Exception e) {
             System.out.println(e.getMessage());
