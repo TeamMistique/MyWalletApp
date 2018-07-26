@@ -6,5 +6,6 @@ import java.util.List;
 
 public interface TypeService {
     List<Type> getAll();
+
     Type getById(int id);
 }
