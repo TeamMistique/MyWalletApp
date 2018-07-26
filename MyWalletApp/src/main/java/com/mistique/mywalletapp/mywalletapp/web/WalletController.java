@@ -5,9 +5,7 @@ import com.mistique.mywalletapp.mywalletapp.services.base.WalletService;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.http.HttpStatus;
 import org.springframework.http.ResponseEntity;
-import org.springframework.web.bind.annotation.ExceptionHandler;
-import org.springframework.web.bind.annotation.RequestMapping;
-import org.springframework.web.bind.annotation.RestController;
+import org.springframework.web.bind.annotation.*;
 
 import java.util.List;
 
@@ -24,6 +22,16 @@ public class WalletController {
     @RequestMapping("/")
     public List<Wallet> getAll(){
         return service.listAll();
+    }
+
+    @RequestMapping("/{id}")
+    public Wallet getById(@PathVariable("id") String id){
+        return service.getById(Integer.parseInt(id));
+    }
+
+    @RequestMapping(value = "/add", method = RequestMethod.POST)
+    public void addWallet(@RequestParam("name") String name){
+        service.create(name, 0);
     }
 
     @ExceptionHandler
