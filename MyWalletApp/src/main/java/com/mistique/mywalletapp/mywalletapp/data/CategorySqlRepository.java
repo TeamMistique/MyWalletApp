@@ -52,7 +52,8 @@ public class CategorySqlRepository extends AbstractGenericRepository<Category> i
         try (Session session = factory.openSession()) {
             session.beginTransaction();
             Category c = session.get(Category.class, id);
-            c = category;
+            c.setName(category.getName());
+            c.setType(category.getType());
             session.getTransaction().commit();
         } catch (Exception e) {
             System.out.println(e.getMessage());
