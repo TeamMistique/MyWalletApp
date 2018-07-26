@@ -46,6 +46,11 @@ public class WalletController {
         }
     }
 
+    @RequestMapping(value = "delete/{id}", method = RequestMethod.DELETE)
+    public void deleteWallet(@PathVariable("id") String id){
+        service.delete(Integer.parseInt(id));
+    }
+
     @ExceptionHandler
     ResponseEntity<WalletsError> handleException(NumberFormatException e) {
         return new ResponseEntity<>(new WalletsError(HttpStatus.BAD_REQUEST.value(), "Unable to parse something."), HttpStatus.BAD_REQUEST);
