@@ -7,13 +7,6 @@ import org.springframework.beans.factory.annotation.Autowired;
 import java.util.List;
 
 public class TypeServiceImpl implements TypeService {
-    IGenericDao<Type> repository;
-
-    @Autowired
-    public void setRepository(IGenericDao<Type> repositoryToSet) {
-        this.repository = repositoryToSet;
-        repository.s
-    }
 
     @Override
     public List<Type> getAll() {

@@ -10,7 +10,7 @@ public interface GenericRepository<T> {
 
     T findById(int id);
 
-    void create(T post);
+    void create(T entity);
 
     void update(int id, T entity);
 
