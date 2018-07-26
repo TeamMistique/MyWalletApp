@@ -1,5 +1,7 @@
-package com.mistique.mywalletapp.mywalletapp.data.base;
+package com.mistique.mywalletapp.mywalletapp.data;
 
+import com.mistique.mywalletapp.mywalletapp.data.base.AbstractGenericRepository;
+import com.mistique.mywalletapp.mywalletapp.data.base.GenericRepository;
 import com.mistique.mywalletapp.mywalletapp.models.Wallet;
 import org.hibernate.Session;
 import org.hibernate.SessionFactory;
@@ -8,10 +10,9 @@ import org.springframework.stereotype.Repository;
 
 import java.util.ArrayList;
 import java.util.List;
-import java.util.stream.Stream;
 
 @Repository
-public class WalletSqlRepository implements GenericRepository<Wallet>{
+public class WalletSqlRepository extends AbstractGenericRepository<Wallet> implements GenericRepository<Wallet> {
     @Autowired
     SessionFactory factory;
 
@@ -31,11 +32,6 @@ public class WalletSqlRepository implements GenericRepository<Wallet>{
     }
 
     @Override
-    public Stream<Wallet> modelStream() {
-        return listAll().stream();
-    }
-
-    @Override
     public Wallet findById(int id) {
         Wallet wallet = null;
 
@@ -49,18 +45,6 @@ public class WalletSqlRepository implements GenericRepository<Wallet>{
         }
 
         return wallet;
-    }
-
-    @Override
-    public void create(Wallet entity) {
-        try(Session session = factory.openSession()){
-            session.beginTransaction();
-            session.save(entity);
-            session.getTransaction().commit();
-        }
-        catch(Exception ex){
-            System.out.println(ex.getMessage());
-        }
     }
 
     @Override
