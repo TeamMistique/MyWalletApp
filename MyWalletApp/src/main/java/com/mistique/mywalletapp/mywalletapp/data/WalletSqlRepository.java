@@ -13,18 +13,21 @@ import java.util.List;
 
 @Repository
 public class WalletSqlRepository extends AbstractGenericRepository<Wallet> implements GenericRepository<Wallet> {
+    private SessionFactory factory;
+
     @Autowired
-    SessionFactory factory;
+    public WalletSqlRepository(SessionFactory factory) {
+        this.factory = factory;
+    }
 
     @Override
     public List<Wallet> listAll() {
         List<Wallet> wallets = new ArrayList<>();
-        try(Session session = factory.openSession()){
+        try (Session session = factory.openSession()) {
             session.beginTransaction();
             wallets = session.createQuery("FROM Wallet").list();
             session.getTransaction().commit();
-        }
-        catch (Exception e){
+        } catch (Exception e) {
             System.out.println(e.getMessage());
         }
 
@@ -35,12 +38,11 @@ public class WalletSqlRepository extends AbstractGenericRepository<Wallet> imple
     public Wallet findById(int id) {
         Wallet wallet = null;
 
-        try(Session session = factory.openSession()){
+        try (Session session = factory.openSession()) {
             session.beginTransaction();
             wallet = session.get(Wallet.class, id);
             session.getTransaction().commit();
-        }
-        catch (Exception e){
+        } catch (Exception e) {
             System.out.println(e.getMessage());
         }
 
@@ -49,26 +51,24 @@ public class WalletSqlRepository extends AbstractGenericRepository<Wallet> imple
 
     @Override
     public void update(int id, Wallet entity) {
-        try(Session session = factory.openSession()){
+        try (Session session = factory.openSession()) {
             session.beginTransaction();
             Wallet wallet = session.get(Wallet.class, id);
             wallet = entity;
             session.getTransaction().commit();
-        }
-        catch (Exception e){
+        } catch (Exception e) {
             System.out.println(e.getMessage());
         }
     }
 
     @Override
     public void delete(int id) {
-        try(Session session = factory.openSession()){
+        try (Session session = factory.openSession()) {
             session.beginTransaction();
             Wallet wallet = session.get(Wallet.class, id);
             session.delete(wallet);
             session.getTransaction().commit();
-        }
-        catch (Exception e){
+        } catch (Exception e) {
             System.out.println(e.getMessage());
         }
     }
