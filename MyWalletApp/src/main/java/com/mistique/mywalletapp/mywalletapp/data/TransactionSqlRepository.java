@@ -54,7 +54,11 @@ public class TransactionSqlRepository extends AbstractGenericRepository<Transact
         try (Session session = factory.openSession()) {
             session.beginTransaction();
             Transaction transaction = session.get(Transaction.class, id);
-            transaction = entity;
+            transaction.setAmount(entity.getAmount());
+            transaction.setCategory(entity.getCategory());
+            transaction.setNotes(entity.getNotes());
+            transaction.setWallet(entity.getWallet());
+            transaction.setTime(entity.getTime());
             session.getTransaction().commit();
         } catch (Exception e) {
             System.out.println(e.getMessage());
