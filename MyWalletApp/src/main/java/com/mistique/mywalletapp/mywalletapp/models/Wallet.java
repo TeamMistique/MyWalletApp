@@ -1,6 +1,9 @@
 package com.mistique.mywalletapp.mywalletapp.models;
 
+import com.fasterxml.jackson.annotation.JsonBackReference;
+
 import javax.persistence.*;
+import java.util.List;
 
 @Entity
 @Table(name = "wallets")
@@ -15,6 +18,10 @@ public class Wallet {
 
     @Column(name = "Balance")
     private double balance;
+
+    @OneToMany(mappedBy = "wallet")
+    @JsonBackReference
+    private List<Transaction> transactions;
 
     public Wallet() {
     }
@@ -46,5 +53,13 @@ public class Wallet {
 
     public void setBalance(double balance) {
         this.balance = balance;
+    }
+
+    public List<Transaction> getTransactions() {
+        return transactions;
+    }
+
+    public void setTransactions(List<Transaction> transactions) {
+        this.transactions = transactions;
     }
 }
