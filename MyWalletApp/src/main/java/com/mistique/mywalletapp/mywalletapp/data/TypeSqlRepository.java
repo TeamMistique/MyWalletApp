@@ -54,7 +54,7 @@ public class TypeSqlRepository extends AbstractGenericRepository<Type> implement
         try (Session session = factory.openSession()) {
             session.beginTransaction();
             Type t = session.get(Type.class, id);
-            t = type;
+            t.setName(type.getName());
             session.getTransaction().commit();
         } catch (Exception e){
             System.out.println(e.getMessage());

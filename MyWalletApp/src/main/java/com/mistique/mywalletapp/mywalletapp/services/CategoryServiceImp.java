@@ -4,6 +4,7 @@ import com.mistique.mywalletapp.mywalletapp.data.base.GenericRepository;
 import com.mistique.mywalletapp.mywalletapp.models.Category;
 import com.mistique.mywalletapp.mywalletapp.models.Type;
 import com.mistique.mywalletapp.mywalletapp.services.base.CategoryService;
+import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.stereotype.Service;
 
 import java.util.List;
@@ -13,6 +14,7 @@ public class CategoryServiceImp implements CategoryService {
 
     private GenericRepository<Category> repository;
 
+    @Autowired
     public CategoryServiceImp(GenericRepository<Category> repository) {
         this.repository = repository;
     }
