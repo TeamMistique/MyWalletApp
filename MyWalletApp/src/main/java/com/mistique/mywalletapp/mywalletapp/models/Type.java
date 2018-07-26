@@ -1,6 +1,10 @@
 package com.mistique.mywalletapp.mywalletapp.models;
 
+import com.fasterxml.jackson.annotation.JsonBackReference;
+
 import javax.persistence.*;
+import java.util.ArrayList;
+import java.util.List;
 
 @Entity
 @Table(name = "types")
@@ -14,11 +18,18 @@ public class Type {
     @Column(name = "Name")
     private String name;
 
+    @OneToMany(mappedBy = "type")
+    @JsonBackReference
+    private List<Category> categories;
+
     public Type() {
+
     }
 
     public Type(String name) {
         this.name = name;
+        this.categories = new ArrayList<>();
+
     }
 
     public int getId() {
@@ -35,5 +46,13 @@ public class Type {
 
     public void setName(String name) {
         this.name = name;
+    }
+
+    public List<Category> getCategories() {
+        return categories;
+    }
+
+    public void setCategories(List<Category> categories) {
+        this.categories = categories;
     }
 }
