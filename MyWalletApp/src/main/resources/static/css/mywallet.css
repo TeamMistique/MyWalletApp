@@ -1,0 +1,17 @@
+body{
+    position: absolute;
+    margin: 0;
+    padding: 0;
+    top: 0;
+    left: 0;
+    height: 100%;
+    width: 100%;
+    overflow: hidden;
+    display: flex;
+    flex-flow:column wrap;
+}
+
+.title{
+    font-size: 30pt;
+    align-content: center;
+}
