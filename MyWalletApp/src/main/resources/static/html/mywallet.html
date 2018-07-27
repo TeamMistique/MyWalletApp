@@ -9,10 +9,15 @@
         <div id="title">My Wallet</div>
         <div id="balance-visualizer"></div>
     </header>
+    <div id="add-transaction-title">Add new transaction</div>
     <div id="new-transaction-menu">
         <form action="" method="post">
-            <input type="text" name="amount" id="amount" placeholder="Amount">
-            
+            <input type="text" name="amount" id="select-amount" placeholder="Amount">
+            <select name="category" id="select-category"></select>
+            <select name="wallet" id="select-wallet"></select>
+            <input type="datetime-local" name="date" id="select-date">
+            <input type="text" name="notes" id="select-notes"> 
+            <button type="submit" id="add-transaction-button">+</button>  
         </form>
     </div>
 </body>
