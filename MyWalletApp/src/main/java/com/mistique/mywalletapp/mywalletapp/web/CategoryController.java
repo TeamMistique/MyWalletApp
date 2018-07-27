@@ -17,8 +17,9 @@ public class CategoryController {
     private CategoryService service;
     private TypeService typeService;
 
-    public CategoryController(CategoryService service) {
+    public CategoryController(CategoryService service, TypeService typeService) {
         this.service = service;
+        this.typeService = typeService;
     }
 
     @RequestMapping("/")
@@ -33,12 +34,13 @@ public class CategoryController {
 
     @RequestMapping(value = "/update/{id}", method = RequestMethod.PUT)
     public void updateCategory(@PathVariable("id") String idString, @RequestParam(value = "name", required = false) String name,
-                               @RequestParam(value = "type", required = false) int typeId) {
+                               @RequestParam(value = "type", required = false) Integer typeId) {
         int id = Integer.parseInt(idString);
         if (name != null) {
             service.update(id, name);
         }
-        if (typeId != 0) {
+
+        if (typeId != null) {
             Type type = typeService.getById(typeId);
             service.update(id, type);
         }
