@@ -43,30 +43,33 @@ public class TransactionController {
     }
 
     @RequestMapping(value = "/add", method = RequestMethod.POST)
-    public void addTransaction(@RequestParam double amount, @RequestParam String time, @RequestParam int walletID,
-                               @RequestParam int categoryID, @RequestParam String notes) throws ParseException {
+    public void addTransaction(@RequestParam double amount, @RequestParam(required = false) String time, @RequestParam int walletID,
+                               @RequestParam int categoryID, @RequestParam(required = false) String notes) throws ParseException {
         Wallet wallet = walletService.getById(walletID);
         Category category = categoryService.getById(categoryID);
-        DateFormat df = new SimpleDateFormat("EEE MMM dd kk:mm:ss z yyyy", Locale.ENGLISH);
-        Date date = df.parse(time);
+        Date date = new Date();
+        if(time!=null){
+            DateFormat df = new SimpleDateFormat("EEE MMM dd kk:mm:ss z yyyy", Locale.ENGLISH);
+            date = df.parse(time);
+        }
         service.create(amount, date, wallet, category, notes);
     }
 
     @RequestMapping(value = "/update/{id}", method = RequestMethod.PUT)
-    public void update(@PathVariable("id") String id, @RequestParam(required = false) double amount,
-                       @RequestParam(required = false) Date time, @RequestParam(required = false) int walletID,
-                       @RequestParam(required = false) int categoryID, @RequestParam(required = false) String notes) {
+    public void update(@PathVariable("id") String id, @RequestParam(required = false) Double amount,
+                       @RequestParam(required = false) String time, @RequestParam(required = false) Integer walletID,
+                       @RequestParam(required = false) Integer categoryID, @RequestParam(required = false) String notes) {
         int idInt = Integer.parseInt(id);
-        if (amount != 0) {
+        if (amount != null) {
             service.update(idInt, amount);
         }
         if (time != null) {
             service.update(idInt, time);
         }
-        if (walletID != 0) {
+        if (walletID != null) {
             service.update(idInt, walletService.getById(walletID));
         }
-        if (categoryID != 0) {
+        if (categoryID != null) {
             service.update(idInt, categoryService.getById(categoryID));
         }
         if (notes != null) {
