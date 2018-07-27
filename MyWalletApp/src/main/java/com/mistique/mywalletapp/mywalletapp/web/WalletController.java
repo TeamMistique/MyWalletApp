@@ -52,7 +52,7 @@ public class WalletController {
     }
 
     @ExceptionHandler
-    ResponseEntity<WalletsError> handleException(NumberFormatException e) {
-        return new ResponseEntity<>(new WalletsError(HttpStatus.BAD_REQUEST.value(), "Unable to parse something."), HttpStatus.BAD_REQUEST);
+    ResponseEntity<CustomError> handleException(NumberFormatException e) {
+        return new ResponseEntity<>(new CustomError(HttpStatus.BAD_REQUEST.value(), "Unable to parse something."), HttpStatus.BAD_REQUEST);
     }
 }

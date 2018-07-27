@@ -1,11 +1,11 @@
 package com.mistique.mywalletapp.mywalletapp.web;
 
-public class WalletsError {
+public class CustomError {
     private int statusCode;
 
     private String message;
 
-    public WalletsError(int statusCode, String message) {
+    public CustomError(int statusCode, String message) {
         this.statusCode = statusCode;
         this.message = message;
     }
