@@ -18,7 +18,7 @@ body{
 
 .flex-box{
     display: flex;
-    flex-flow:column wrap;
+    flex-flow:column;
     align-items: center;
     justify-content: space-around;
 }
@@ -95,11 +95,19 @@ body{
 
 .sidenav .closebtn {
     position: absolute;
-    top: 0;
+    top: 0px;
     right: 25px;
     font-size: 36px;
     margin-left: 50px;
 }
+
+.side-menu {
+    position: absolute;
+    font-size:60px;
+    cursor:pointer;
+    margin-left: 10px;
+}
+
 
 @media screen and (max-height: 450px) {
   .sidenav {padding-top: 15px;}
