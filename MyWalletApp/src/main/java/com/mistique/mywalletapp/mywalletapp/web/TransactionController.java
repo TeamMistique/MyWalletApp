@@ -19,7 +19,7 @@ import java.util.List;
 import java.util.Locale;
 
 @RestController
-@RequestMapping("/api/mywallet/transactions")
+@RequestMapping("/mywallet/transactions")
 public class TransactionController {
     private TransactionService service;
     private WalletService walletService;

@@ -10,7 +10,7 @@ import org.springframework.web.bind.annotation.*;
 import java.util.List;
 
 @RestController
-@RequestMapping("/api/mywallet/wallets")
+@RequestMapping("/mywallet/wallets")
 public class WalletController {
     private WalletService service;
 
