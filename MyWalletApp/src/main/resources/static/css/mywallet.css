@@ -11,9 +11,9 @@ body{
 }
 
 .main-page{
-    padding: 0 3%;
-    width: 94%;
-    height: 90%;
+    margin-left: 3%;
+    width: 97%;
+    height: 100%;
 }
 
 .flex-box{
@@ -21,6 +21,48 @@ body{
     flex-flow:column;
     align-items: center;
     justify-content: space-around;
+}
+
+.inverse-colors{
+    background: black;
+    color: white;
+}
+
+.aside{
+    padding: 2%;
+
+}
+
+.full-height{
+    height: 100%;
+}
+
+.aside input, .aside select, textarea{
+    width: 100%;
+    padding: 12px 20px;
+    margin: 8px 0;
+    box-sizing: border-box;
+    border: 2px solid white;
+    border-radius: 4px;
+}
+
+button{
+    padding: 12px 20px;
+    margin: 8px 0;
+    box-sizing: border-box;
+    border: 2px solid white;
+    border-radius: 4px;
+    font-family: Lato;
+    font-size: 18pt;
+    font-weight: bold;
+    
+}
+
+.horizontal-flex-box{
+    display: flex;
+    flex-flow:row;
+    align-items: center;
+    justify-content: space-between;
 }
 
 .title{

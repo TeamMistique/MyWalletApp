@@ -1,12 +1,15 @@
 <!DOCTYPE html>
 <html lang="en">
+
 <head>
     <meta charset="UTF-8">
     <title>Title</title>
     <link rel="stylesheet" href="..\css\mywallet.css">
+    <link rel="stylesheet" href="https://use.fontawesome.com/releases/v5.2.0/css/all.css" integrity="sha384-hWVjflwFxL6sNzntih27bfxkr27PmbbK/iSvJ+a4+0owXq79v+lsFkW54bOGbiDQ" crossorigin="anonymous">
 </head>
+
 <body>
-    
+
     <div id="sidenav" class="sidenav">
         <a href="javascript:void(0)" class="closebtn" onclick="closeNav()">&times;</a>
         <a href="#">About</a>
@@ -16,41 +19,54 @@
     </div>
     <span id="side-menu" class="side-menu" onclick="openNav()">&#9776;</span>
 
-    <div id="main-page" class="main-page flex-box">
-    <header>
-        <div id="title" class="title no-stretch tb-margin">My Wallet</div>
-        <div id="balance-visualizer"></div>
-    </header>
-    <div id="new-transaction" class="no-stretch tb-margin">
-    <div id="add-transaction-title" class="tiny-margin my-header-2">Add new transaction</div>
-    <div id="new-transaction-menu">
-        <form action="" method="post">
-            <input type="text" name="amount" id="select-amount" placeholder="Amount">
-            <select name="category" id="select-category"></select>
-            <select name="wallet" id="select-wallet"></select>
-            <input type="datetime-local" name="date" id="select-date">
-            <input type="text" name="notes" id="select-notes"> 
-            <button type="submit" id="add-transaction-button">+</button>  
-        </form>
-    </div>
-    </div>
-    <div id="full-dash" class="stretch-both tb-margin dash flex-box">
-    <div id="dash-menu" class="no-stretch top-margin">
-    <div id="dash-title" class="tiny-margin my-header">Dashboard</div>
-    <form action="" method="get" >
-        <select name="wallet" id="dash-select-wallet"></select>
-        <select name="category" id="dash-select-category"></select>
-        <input type="date" name="from-date" id="from-date">
-        <input type="date" name="to-date" id="to-date">
-    </form>
-    </div>
-    <div id="dash" class="dash stretch-both tb-margin">    
+    <div id="main-page" class="main-page horizontal-flex-box">
+        <div id="center" class="flex-box stretch-both full-height">
+            <header>
+                <div id="title" class="title no-stretch tb-margin">My Wallet</div>
+                <div id="balance-visualizer"></div>
+            </header>
+
+            <div id="full-dash" class="stretch-both tb-margin dash flex-box">
+                <div id="dash-menu" class="no-stretch top-margin">
+                    <div id="dash-title" class="tiny-margin my-header">Dashboard</div>
+                    <form action="" method="get">
+                        <select name="wallet" id="dash-select-wallet"></select>
+                        <select name="category" id="dash-select-category"></select>
+                        <input type="date" name="from-date" id="from-date">
+                        <input type="date" name="to-date" id="to-date">
+                    </form>
+                </div>
+                <div id="dash" class="dash stretch-both tb-margin">
+
+                </div>
+            </div>
+        </div>
+
+        <div id="right" class="no-stretch inverse-colors full-height aside flex-box">
+            <div id="add-transaction-title" class="tiny-margin my-header no-stretch">NEW <br> TRANSACTION</div>
+            <div id="new-transaction-menu stretch-both">
+                <form action="" method="post" class="flex-box">
+                    Amount:
+                    <input type="text" name="amount" id="select-amount" placeholder="Amount" class="tiny-margin no-stretch">
+                    Category:
+                    <select name="category" id="select-category" class="tiny-margin no-stretch"></select>
+                    Wallet:
+                    <select name="wallet" id="select-wallet" class="tiny-margin no-stretch"></select>
+                    Date:
+                    <input type="datetime-local" name="date" id="select-date" class="tiny-margin no-stretch">
+                    Notes:
+                    <textarea name="notes" id="select-notes" cols="30" rows="10" class="tiny-margin" placeholder="Add your notes here..."></textarea>
+                    <button type="submit" id="add-transaction-button" class="tiny-margin no-stretch"><i class="fas fa-plus"></i></button>
+                </form>
+            </div>
+        </div>
+
+
 
     </div>
-    </div>
-    </div>
     <script src="https://code.jquery.com/jquery-3.3.1.min.js" integrity="sha256-FgpCb/KJQlLNfOu91ta32o/NMZxltwRo8QtmkMRdAu8="
-    crossorigin="anonymous"></script>
+        crossorigin="anonymous"></script>
     <script src="../js/mywallet.js"></script>
 </body>
+
 </html>
