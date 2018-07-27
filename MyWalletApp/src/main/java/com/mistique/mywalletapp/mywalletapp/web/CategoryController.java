@@ -51,8 +51,8 @@ public class CategoryController {
 
 
     @ExceptionHandler
-    ResponseEntity<CategoriesError> handleException(NumberFormatException e) {
-        return new ResponseEntity<>(new CategoriesError(HttpStatus.BAD_REQUEST.value(), "Unable to parse something."), HttpStatus.BAD_REQUEST);
+    ResponseEntity<CustomError> handleException(NumberFormatException e) {
+        return new ResponseEntity<>(new CustomError(HttpStatus.BAD_REQUEST.value(), "Unable to parse something."), HttpStatus.BAD_REQUEST);
     }
 
 }
