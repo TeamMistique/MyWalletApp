@@ -10,11 +10,16 @@ body{
     display: flex;
     flex-flow:column wrap;
     font-family: "Lato", sans-serif;
+    align-items: center;
+    justify-content: space-around;
 }
 
 .title{
-    font-size: 30pt;
-    align-content: center;
+    font-size: 60pt;
+}
+
+.no-stretch{
+
 }
 
 .sidenav {
