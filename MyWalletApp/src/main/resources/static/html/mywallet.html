@@ -16,12 +16,13 @@
     </div>
     <span style="font-size:30px;cursor:pointer" onclick="openNav()">&#9776;</span>
 
-
+    <div id="main-page" class="main-page flex-box">
     <header>
-        <div id="title" class="title">My Wallet</div>
+        <div id="title" class="title no-stretch tb-margin">My Wallet</div>
         <div id="balance-visualizer"></div>
     </header>
-    <div id="add-transaction-title">Add new transaction</div>
+    <div id="new-transaction" class="no-stretch tb-margin">
+    <div id="add-transaction-title" class="tiny-margin my-header-2">Add new transaction</div>
     <div id="new-transaction-menu">
         <form action="" method="post">
             <input type="text" name="amount" id="select-amount" placeholder="Amount">
@@ -32,18 +33,22 @@
             <button type="submit" id="add-transaction-button">+</button>  
         </form>
     </div>
-    <div id="dash-title">Dashboard</div>
+    </div>
+    <div id="full-dash" class="stretch-both tb-margin dash flex-box">
+    <div id="dash-menu" class="no-stretch top-margin">
+    <div id="dash-title" class="tiny-margin my-header">Dashboard</div>
     <form action="" method="get" >
         <select name="wallet" id="dash-select-wallet"></select>
         <select name="category" id="dash-select-category"></select>
         <input type="date" name="from-date" id="from-date">
         <input type="date" name="to-date" id="to-date">
     </form>
-    <div id="statistics-window">    </div>
+    </div>
+    <div id="dash" class="dash stretch-both tb-margin">    
 
-
-
-
+    </div>
+    </div>
+    </div>
     <script src="https://code.jquery.com/jquery-3.3.1.min.js" integrity="sha256-FgpCb/KJQlLNfOu91ta32o/NMZxltwRo8QtmkMRdAu8="
     crossorigin="anonymous"></script>
     <script src="../js/mywallet.js"></script>

@@ -7,9 +7,18 @@ body{
     height: 100%;
     width: 100%;
     overflow: hidden;
+    font-family: "Lato", sans-serif;
+}
+
+.main-page{
+    padding: 0 3%;
+    width: 94%;
+    height: 90%;
+}
+
+.flex-box{
     display: flex;
     flex-flow:column wrap;
-    font-family: "Lato", sans-serif;
     align-items: center;
     justify-content: space-around;
 }
@@ -19,7 +28,43 @@ body{
 }
 
 .no-stretch{
+    flex: 0 0 auto;
+}
 
+.stretch-both{
+    flex: 1 1 auto;
+}
+
+.stretch-end{
+    flex: 1 1 0;
+}
+
+.tb-margin{
+    margin: 20px 0;
+}
+
+.tiny-margin{
+    margin: 10px;
+}
+
+.top-margin{
+    margin-top: 20px;
+}
+
+.my-header{
+    font-size: 24pt;
+    text-align: center;
+}
+
+.my-header-2{
+    text-align: center;
+    font-size: 16pt;
+}
+
+.dash{
+    border: 1px solid black;
+    width: 97%;
+    border-radius: 10px;
 }
 
 .sidenav {
