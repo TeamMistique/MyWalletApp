@@ -32,11 +32,46 @@ $.ajax({
     type: "POST",
     url: "/mywallet/wallets/",
     success: function(data){
-        debugger;
         helpers.buildDropdown(
             data,
             $('#dash-select-wallet'),
             'Select a wallet'
+        );
+    }
+});
+
+$.ajax({
+    type: "POST",
+    url: "/mywallet/wallets/",
+    success: function(data){
+        helpers.buildDropdown(
+            data,
+            $('#select-wallet'),
+            'Select a wallet'
+        );
+    }
+});
+
+$.ajax({
+    type: "POST",
+    url: "/mywallet/categories/",
+    success: function(data){
+        helpers.buildDropdown(
+            data,
+            $('#dash-select-category'),
+            'Select a category'
+        );
+    }
+});
+
+$.ajax({
+    type: "POST",
+    url: "/mywallet/categories/",
+    success: function(data){
+        helpers.buildDropdown(
+            data,
+            $('#select-category'),
+            'Select a category'
         );
     }
 });
