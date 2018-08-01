@@ -159,3 +159,28 @@ button{
   .sidenav {padding-top: 15px;}
   .sidenav a {font-size: 18px;}
 }
+
+.width-90{
+    width: 90%;
+}
+
+.fifth{
+    width: 20%;
+}
+
+.tenth{
+    width: 10%;
+}
+
+.headers{
+    background-color: #818181;
+    font-weight: bold;
+}
+
+.income{
+    background: #2ecc71;
+}
+
+.expense{
+    background: #e74c3c;
+}

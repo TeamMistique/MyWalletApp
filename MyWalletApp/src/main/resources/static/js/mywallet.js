@@ -1,4 +1,7 @@
-//this is java script code :))
+$( document ).ready(function() {
+    setDateToToday();
+    updateDashboard();
+});
 
 $(function () {
     $('#main-page').show();
@@ -45,9 +48,13 @@ var helpers = {
 
     listTransactions: function(result, place){
         place.html('');
+        place.append('<div id="headers" class="horizontal-flex-box headers width-90"><div class="tenth">Category</div><div class="fifth">Notes</div><div class="tenth">Date</div><div class="tenth">Wallet</div><div class="tenth">Amount</div></div>')
         if (result !== ''){
             $.each(result, function(k, v){
-                place.append('<div value="'+v.id+'"><div>'+v.category.name+'</div><div>'+v.time+'</div><div>'+v.wallet.name+'</div><div>'+v.amount+'</div></div>');
+                var colorClass = null;
+                if(v.category.type.id==1) colorClass = "income";
+                else if(v.category.type.id==2) colorClass = "expense";
+                place.append('<div class="horizontal-flex-box width-90 '+colorClass+'" value="'+v.id+'"><div class="tenth">'+v.category.name+'</div><div class="tenth">'+v.notes+'</div><div class="fifth">'+v.time+'</div><div class="tenth">'+v.wallet.name+'</div><div class="tenth">'+v.amount+'</div></div>');
             });
         };
     }
@@ -60,11 +67,15 @@ $("#add-transaction-form").submit(function(e) {
     $.ajax({
         type: "POST",
         url: url,
-        data: result
+        data: result,
+        success: function(){
+            updateDashboard();
+        }
     });
 
     e.preventDefault();
     $(this).trigger('reset');
+    setDateToToday();
 });
 
 $.ajax({
@@ -121,14 +132,16 @@ Date.prototype.toDateInputValue = (function () {
     return local.toJSON().slice(0, 10);
 });
 
-$(function () {
+function setDateToToday() {
     $('#select-date').val(new Date().toDateInputValue());
-});
+};
 
-$.ajax({
-    type: "POST",
-    url: "/mywallet/transactions/",
-    success: function (data) {
-        helpers.listTransactions(data, $('#dash'));
-    }
-});
+function updateDashboard(){
+    $.ajax({
+        type: "POST",
+        url: "/mywallet/transactions/",
+        success: function (data) {
+            helpers.listTransactions(data, $('#dash'));
+        }
+    });
+};
