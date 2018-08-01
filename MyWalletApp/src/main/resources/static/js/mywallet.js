@@ -1,5 +1,30 @@
 //this is java script code :))
 
+$(function() {
+    $('#main-page').show();
+    $('#main-page').addClass('active');
+    
+    $('.sidenav a').on('click', function(e) {
+      e.preventDefault();
+      $('.sidenav a').removeClass('active');
+      $(this).addClass('active');
+      
+      var id = $(this).attr('id');
+      var menu = id.substring(0,4);
+      $('body > div').hide();
+      $('#' + menu + '-page').show();
+      
+      closeNav();
+      
+    })
+  });
+  
+
+
+
+
+
+
 function openNav() {
     document.getElementById("sidenav").style.width = "250px";
 }
