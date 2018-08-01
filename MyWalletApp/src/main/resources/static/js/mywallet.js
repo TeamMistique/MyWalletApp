@@ -63,6 +63,7 @@ var helpers = {
 $("#add-transaction-form").submit(function(e) {
     var result = $(this).serialize();
     var url = $(this).attr('action');
+    console.log(result);
 
     $.ajax({
         type: "POST",

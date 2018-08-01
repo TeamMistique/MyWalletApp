@@ -10,6 +10,8 @@ import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.http.HttpStatus;
 import org.springframework.http.ResponseEntity;
 import org.springframework.web.bind.annotation.*;
+import org.springframework.web.util.HtmlUtils;
+
 
 import java.text.DateFormat;
 import java.text.ParseException;
@@ -47,11 +49,11 @@ public class TransactionController {
                                @RequestParam int categoryID, @RequestParam(required = false) String notes) throws ParseException {
         Wallet wallet = walletService.getById(walletID);
         Category category = categoryService.getById(categoryID);
-        Date date = new Date();
-        if(time!=null){
-            DateFormat df = new SimpleDateFormat("yyyy-MM-dd", Locale.ENGLISH);
-            date = df.parse(time);
-        }
+
+        DateFormat df = new SimpleDateFormat("MM/dd/yyyy KK:mm a", Locale.ENGLISH);
+        Date date = df.parse(time);
+        System.out.println(date);
+
         service.create(amount, date, wallet, category, notes);
     }
 
