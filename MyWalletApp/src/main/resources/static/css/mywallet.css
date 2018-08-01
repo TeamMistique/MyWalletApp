@@ -185,8 +185,18 @@ button{
 
 .income{
     background: #2ecc71;
+    border-bottom: 1px solid #27ae60;
+}
+
+.income:hover{
+    background: #27ae60;
 }
 
 .expense{
     background: #e74c3c;
+    border-bottom: 1px solid #c0392b;
+}
+
+.expense:hover{
+    background: #c0392b;
 }
