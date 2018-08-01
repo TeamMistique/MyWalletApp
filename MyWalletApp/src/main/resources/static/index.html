@@ -4,8 +4,9 @@
 <head>
     <meta charset="UTF-8">
     <title>Title</title>
-    <link rel="stylesheet" href="css\mywallet.css">
-    <link rel="stylesheet" href="https://use.fontawesome.com/releases/v5.2.0/css/all.css" integrity="sha384-hWVjflwFxL6sNzntih27bfxkr27PmbbK/iSvJ+a4+0owXq79v+lsFkW54bOGbiDQ" crossorigin="anonymous">
+    <link rel="stylesheet" href="css/mywallet.css">
+    <link rel="stylesheet" href="https://use.fontawesome.com/releases/v5.2.0/css/all.css" integrity="sha384-hWVjflwFxL6sNzntih27bfxkr27PmbbK/iSvJ+a4+0owXq79v+lsFkW54bOGbiDQ"
+        crossorigin="anonymous">
 </head>
 
 <body>
@@ -42,20 +43,21 @@
         </div>
 
         <div id="right" class="no-stretch inverse-colors full-height aside flex-box">
-            <div id="add-transaction-title" class="tiny-margin my-header no-stretch">NEW <br> TRANSACTION</div>
+            <div id="add-transaction-title" class="tiny-margin my-header no-stretch">NEW
+                <br> TRANSACTION</div>
             <div id="new-transaction-menu stretch-both">
-                <form action="/mywallet/transactions/add" method="post" class="flex-box">
+                <form id="add-transaction-form" action="/mywallet/transactions/add" method="POST" class="flex-box">
                     Amount:
-                    <input type="text" name="amount" id="select-amount" placeholder="Amount" class="tiny-margin no-stretch">
-                    Category:
-                    <select name="category" id="select-category" class="tiny-margin no-stretch"></select>
+                    <input type="text" name="amount" id="select-amount" placeholder="Amount" class="tiny-margin no-stretch"> Category:
+                    <select name="categoryID" id="select-category" class="tiny-margin no-stretch"></select>
                     Wallet:
-                    <select name="wallet" id="select-wallet" class="tiny-margin no-stretch"></select>
+                    <select name="walletID" id="select-wallet" class="tiny-margin no-stretch"></select>
                     Date:
-                    <input type="date" name="date" id="select-date" class="tiny-margin no-stretch">
-                    Notes:
+                    <input type="date" name="time" id="select-date" class="tiny-margin no-stretch"> Notes:
                     <textarea name="notes" id="select-notes" cols="30" rows="10" class="tiny-margin" placeholder="Add your notes here..."></textarea>
-                    <button type="submit" id="add-transaction-button" class="tiny-margin no-stretch"><i class="fas fa-plus"></i></button>
+                    <button type="submit" id="add-transaction-button" class="tiny-margin no-stretch">
+                        <i class="fas fa-plus"></i>
+                    </button>
                 </form>
             </div>
         </div>
@@ -64,7 +66,7 @@
     <div id="wallets-page" class="wallets-page">
     </div>
 
-    <div id="categories-page" class="categories-page" >
+    <div id="categories-page" class="categories-page">
         <div id="categories-page-title">Categories</div>
         <div id="expences-colomn" class="expences-colomn">
             <div id="expence-title" class="expence-title">Expence</div>
@@ -72,21 +74,21 @@
             <div id="list-expence-categories">
 
             </div>
-        </div>   
+        </div>
 
 
         <div id="income-colomn" class="income-colomn">
-          <div id="income-title" class="income-title">Income</div>
-          <button type="submit" id="add-income-category" class="add-income-category">+</button>
-          <div id="list-income-categories">
-              
-          </div>
-     </div>  
+            <div id="income-title" class="income-title">Income</div>
+            <button type="submit" id="add-income-category" class="add-income-category">+</button>
+            <div id="list-income-categories">
+
+            </div>
+        </div>
 
     </div>
 
 
-
+    ø
 
 
 

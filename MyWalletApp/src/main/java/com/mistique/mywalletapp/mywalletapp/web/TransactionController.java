@@ -43,13 +43,13 @@ public class TransactionController {
     }
 
     @RequestMapping(value = "/add", method = RequestMethod.POST)
-    public void addTransaction(@RequestParam double amount, @RequestParam(required = false) String time, @RequestParam int walletID,
+    public void addTransaction(@RequestParam double amount, @RequestParam String time, @RequestParam int walletID,
                                @RequestParam int categoryID, @RequestParam(required = false) String notes) throws ParseException {
         Wallet wallet = walletService.getById(walletID);
         Category category = categoryService.getById(categoryID);
         Date date = new Date();
         if(time!=null){
-            DateFormat df = new SimpleDateFormat("EEE MMM dd kk:mm:ss z yyyy", Locale.ENGLISH);
+            DateFormat df = new SimpleDateFormat("yyyy-MM-dd", Locale.ENGLISH);
             date = df.parse(time);
         }
         service.create(amount, date, wallet, category, notes);
