@@ -37,7 +37,7 @@ body{
     height: 100%;
 }
 
-.aside input, .aside select, textarea{
+.pretty-input{
     width: 100%;
     padding: 2% 3%;
     margin: 8px 0;
@@ -159,6 +159,9 @@ button{
     display: none;
 }
 
+.container{
+    position: relative;
+}
 
 @media screen and (max-height: 450px) {
   .sidenav {padding-top: 15px;}

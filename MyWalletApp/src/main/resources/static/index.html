@@ -54,34 +54,28 @@
             <div id="new-transaction-menu stretch-both">
                 <form id="add-transaction-form" action="/mywallet/transactions/add" method="POST" class="flex-box">
                     Amount:
-                    <input type="text" name="amount" id="select-amount" placeholder="Amount" class="tiny-margin no-stretch"> Category:
-                    <select name="categoryID" id="select-category" class="tiny-margin no-stretch"></select>
+                    <input type="text" name="amount" id="select-amount" placeholder="Amount" class="tiny-margin no-stretch pretty-input"> Category:
+                    <select name="categoryID" id="select-category" class="tiny-margin no-stretch pretty-input"></select>
                     Wallet:
-                    <select name="walletID" id="select-wallet" class="tiny-margin no-stretch"></select>
+                    <select name="walletID" id="select-wallet" class="tiny-margin no-stretch pretty-input"></select>
                     Date:
                     <div class="container">
                         <div class="row">
                             <div class="col-sm-6">
-                                <div class="form-group">
-                                    <div class="input-group date" id="datetimepicker1" data-target-input="nearest">
-                                        <input name="time" type="text" class="form-control datetimepicker-input" data-target="#datetimepicker1" />
-                                        <div class="input-group-append" data-target="#datetimepicker1" data-toggle="datetimepicker">
-                                            <div class="input-group-text">
-                                                <i class="fa fa-calendar"></i>
-                                            </div>
-                                        </div>
-                                    </div>
-                                </div>
+                                <input name="time" type="text" class="form-control datetimepicker-input pretty-input" id="datetimepicker5" data-toggle="datetimepicker"
+                                    data-target="#datetimepicker5" />
                             </div>
                             <script type="text/javascript">
                                 $(function () {
-                                    $('#datetimepicker1').datetimepicker();
+                                    $('#datetimepicker5').datetimepicker({
+                                        defaultDate: new Date()
+                                    });
                                 });
                             </script>
                         </div>
                     </div>
                     Notes:
-                    <textarea name="notes" id="select-notes" cols="30" rows="10" class="tiny-margin" placeholder="Add your notes here..."></textarea>
+                    <textarea name="notes" id="select-notes" cols="30" rows="10" class="tiny-margin pretty-input" placeholder="Add your notes here..."></textarea>
                     <button type="submit" id="add-transaction-button" class="tiny-margin no-stretch">
                         <i class="fas fa-plus"></i>
                     </button>

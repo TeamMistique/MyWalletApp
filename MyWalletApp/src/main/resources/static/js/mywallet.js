@@ -1,5 +1,4 @@
 $(document).ready(function () {
-    setDateToToday();
     updateDashboard();
 });
 
@@ -87,7 +86,6 @@ $("#add-transaction-form").submit(function (e) {
 
     e.preventDefault();
     $(this).trigger('reset');
-    setDateToToday();
 });
 
 $.ajax({
@@ -143,10 +141,6 @@ Date.prototype.toDateInputValue = (function () {
     local.setMinutes(this.getMinutes() - this.getTimezoneOffset());
     return local.toJSON().slice(0, 10);
 });
-
-function setDateToToday() {
-    $('#select-date').val(new Date().toDateInputValue());
-};
 
 function updateDashboard() {
     $.ajax({
