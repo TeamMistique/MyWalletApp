@@ -41,6 +41,15 @@ var helpers = {
                 dropdown.append('<option value="' + v.id + '">' + v.name + '</option>');
             });
         }
+    },
+
+    listTransactions: function(result, place){
+        place.html('');
+        if (result !== ''){
+            $.each(result, function(k, v){
+                place.append('<div value="'+v.id+'"><div>'+v.category.name+'</div><div>'+v.time+'</div><div>'+v.wallet.name+'</div><div>'+v.amount+'</div></div>');
+            });
+        };
     }
 };
 
@@ -106,8 +115,6 @@ $.ajax({
     }
 });
 
-
-
 Date.prototype.toDateInputValue = (function () {
     var local = new Date(this);
     local.setMinutes(this.getMinutes() - this.getTimezoneOffset());
@@ -116,4 +123,12 @@ Date.prototype.toDateInputValue = (function () {
 
 $(function () {
     $('#select-date').val(new Date().toDateInputValue());
+});
+
+$.ajax({
+    type: "POST",
+    url: "/mywallet/transactions/",
+    success: function (data) {
+        helpers.listTransactions(data, $('#dash'));
+    }
 });
