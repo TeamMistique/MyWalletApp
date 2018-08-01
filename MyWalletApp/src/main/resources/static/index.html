@@ -10,11 +10,12 @@
 
 <body>
 
-    <div id="sidenav" class="sidenav">
+    <nav id="sidenav" class="sidenav">
         <a href="javascript:void(0)" class="closebtn" onclick="closeNav()">&times;</a>
-        <a href="#">Wallets</a>
-        <a href="#">Categories</a>
-    </div>
+        <a href="" id="show-main">Home</a>
+        <a href="" id="show-wallets">Wallets</a>
+        <a href="" id="show-categories">Categories</a>
+    </nav>
     <span id="side-menu" class="side-menu" onclick="openNav()">&#9776;</span>
 
     <div id="main-page" class="main-page horizontal-flex-box">
@@ -59,11 +60,12 @@
             </div>
         </div>
     </div>
+
     <div id="wallets-page" class="wallets-page">
     </div>
 
     <div id="categories-page" class="categories-page" >
-        <div>Categories</div>
+        <div id="categories-page-title">Categories</div>
         <div id="expences-colomn" class="expences-colomn">
             <div id="expence-title" class="expence-title">Expence</div>
             <button type="submit" id="add-expence-category" class="add-expence-category">+</button>
