@@ -62,7 +62,7 @@ button{
     display: flex;
     flex-flow:row;
     align-items: center;
-    justify-content: space-between;
+    justify-content: space-around;
 }
 
 .title{
@@ -107,6 +107,11 @@ button{
     border: 1px solid black;
     width: 97%;
     border-radius: 10px;
+}
+
+#dash{
+    overflow: auto;
+    justify-content: flex-start;
 }
 
 .sidenav {
@@ -160,8 +165,9 @@ button{
   .sidenav a {font-size: 18px;}
 }
 
-.width-90{
-    width: 90%;
+.width-100{
+    width: 100%;
+    padding: 10px 0;
 }
 
 .fifth{
