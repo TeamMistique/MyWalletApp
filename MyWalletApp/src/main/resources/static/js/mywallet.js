@@ -10,7 +10,10 @@ $(function () {
     $('.sidenav a').on('click', function (e) {
         e.preventDefault();
         $('.sidenav a').removeClass('active');
-        $(this).addClass('active');
+        if($(this).attr('id')!== "closebtn"){
+            $(this).addClass('active');
+        }
+        
 
         var id = $(this).attr('id');
         var menu = id.substring(5);
