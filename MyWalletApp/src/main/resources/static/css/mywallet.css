@@ -23,6 +23,10 @@ body{
     justify-content: space-around;
 }
 
+.hidden{
+    display: none !important;
+}
+
 .inverse-colors{
     background: black;
     color: white;
@@ -30,7 +34,6 @@ body{
 
 .aside{
     padding: 2%;
-
 }
 
 .full-height{
@@ -199,6 +202,7 @@ button{
 
 .income:hover{
     background: #27ae60;
+    cursor: pointer;
 }
 
 .expense{
@@ -208,6 +212,7 @@ button{
 
 .expense:hover{
     background: #c0392b;
+    cursor: pointer;
 }
 
 .page-title {

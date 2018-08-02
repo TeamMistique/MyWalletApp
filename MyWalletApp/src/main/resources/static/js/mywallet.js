@@ -4,7 +4,7 @@ $(document).ready(function () {
 
 $(function () {
     $('#main-page').show();
-    $('#main-page').addClass('active');
+    $('#show-main').addClass('active');
 
     $('.sidenav a').on('click', function (e) {
         e.preventDefault();
@@ -151,3 +151,16 @@ function updateDashboard() {
         }
     });
 };
+
+$('#dash').on('click', '.income, .expense', function (e) {
+    e.stopPropagation();
+    $('#right-edit').removeClass('hidden');
+    $('#right-add').addClass('hidden');
+
+    
+});
+
+$('#main-page').on('click', function(e){
+    $('#right-add').removeClass('hidden');
+    $('#right-edit').addClass('hidden');
+});
