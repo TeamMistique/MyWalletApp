@@ -137,8 +137,13 @@ button{
 }
 
 .sidenav a:hover {
-    color: #f1f1f1;
+    color: #50e074;
 }
+
+.active {
+    background-color: white;
+    color: black;  
+  }
 
 .sidenav .closebtn {
     position: absolute;
@@ -199,4 +204,22 @@ button{
 
 .expense:hover{
     background: #c0392b;
+}
+
+.page-title {
+text-align: center;
+}
+
+.category-column {
+    float: left;
+    border: 1px solid black;
+    width: 40%;
+    margin-left: 5%;
+}
+
+.add-category {
+    padding: 15px 25px;
+    text-align: center;
+    font-size: 24px;
+    cursor: pointer;
 }
