@@ -87,41 +87,58 @@
     <div id="wallets-page" class="wallets-page">
     </div>
 
-    <div id="categories-page" class="main-page">
-        <div id="categories-page-title" class="title page-title" >Categories</div>
+    <div id="categories-page" class="main-page flex-box2">
+        <div id="categories-page-title" class="title page-title">Categories</div>
 
-        <div id="" class="horizontal-flex-box">
+        <div id="" class="categories-box horizontal-flex-box">
 
-        <div id="expenses-column" class="category-column">
-            <div id="expense-title" class="my-header">Expense
-            <button id="add-expense-category" class="add-category">
-                <i class="fas fa-plus"></i></button>
-                 <!-- 
+            <div id="expenses-column" class="category-column flex-box2 full-height">
+                <div id="expense-title" class="my-header border-line no-stretch">Expense
+                    <button id="add-expense-category" class="add-category">
+                        <i class="fas fa-plus"></i>
+                    </button>
+                </div>
+                <!-- 
             <button id="delete-expense-category" class="delete-category tiny-margin no-stretch">
                    <i class="fas fa-trash-alt"></i> 
                     <i class="fas fa-pencil-alt"></i>
--->
-            </button>
+                    </button>-->
+
+                <div id="list-expense-categories" class="list-categories stretch-both">
+                    <div class="category-style">Food</div>
+                    <div class="category-style">Food</div>
+                    <div class="category-style">Food</div>
+                    <div class="category-style">Food</div>
+                    <div class="category-style">Food</div>
+                    <div class="category-style">Food</div>
+                </div>
+
             </div>
-            <div id="list-expense-categories" >
-            
+
+            <div id="income-column" class="category-column flex-box2 full-height">
+                <div id="income-title" class="my-header border-line no-stretch">Income
+                    <button id="add-income-category" class="add-category">
+                        <i class="fas fa-plus"></i>
+                    </button>
+                </div>
+                <!-- 
+                <button id="delete-expense-category" class="delete-category tiny-margin no-stretch">
+                       <i class="fas fa-trash-alt"></i> 
+                        <i class="fas fa-pencil-alt"></i>
+                        </button>-->
+
+                <div id="list-income-categories" class="list-categories stretch-both">
+                    <div class="category-style">Food</div>
+                    <div class="category-style">Food</div>
+                    <div class="category-style">Food</div>
+                    <div class="category-style">Food</div>
+                    <div class="category-style">Food</div>
+                    <div class="category-style">Food</div>
+                </div>
+
             </div>
         </div>
-
-
-        <div id="income-column" class="category-column">
-            <div id="income-title" class="my-header">Income
-            <button type="submit" id="add-income-category" class="add-category">+</button>
-            <!--  
-            <button type="submit" id="delete-income-category" class="delete-category">+</button>
-            </div>-->
-            <div id="list-income-categories">
-
-            </div>
-        </div>
-         </div>
     </div>
-
 
 
     <script src="js/mywallet.js"></script>

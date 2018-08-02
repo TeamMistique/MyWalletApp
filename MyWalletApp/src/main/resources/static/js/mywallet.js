@@ -3,9 +3,10 @@ $(document).ready(function () {
 });
 
 $(function () {
-    $('#main-page').show();
-    $('#main-page').addClass('active');
-
+    // $('#categories-page').show();
+    // $('#categories-pagee').addClass('active');
+    $('body > div').hide();
+    $('#categories-page').show();
     $('.sidenav a').on('click', function (e) {
         e.preventDefault();
         $('.sidenav a').removeClass('active');
@@ -85,7 +86,7 @@ var helpers = {
                 } else {
                     list = listExpense;
                 }
-                list.append('<div value="' + v.id + '">' + v.name + '</div>');
+                list.append('<div class="category-style" value="' + v.id + '">' + v.name + '</div>');
             });
         }
     }

@@ -1,4 +1,4 @@
-body{
+body {
     position: absolute;
     margin: 0;
     padding: 0;
@@ -10,34 +10,33 @@ body{
     font-family: "Lato", sans-serif;
 }
 
-.main-page{
+.main-page {
     margin-left: 3%;
     width: 97%;
     height: 100%;
 }
 
-.flex-box{
+.flex-box {
     display: flex;
-    flex-flow:column;
+    flex-flow: column;
     align-items: center;
     justify-content: space-around;
 }
 
-.inverse-colors{
+.inverse-colors {
     background: black;
     color: white;
 }
 
-.aside{
+.aside {
     padding: 2%;
-
 }
 
-.full-height{
+.full-height {
     height: 100%;
 }
 
-.pretty-input{
+.pretty-input {
     width: 100%;
     padding: 2% 3%;
     margin: 8px 0;
@@ -46,7 +45,7 @@ body{
     border-radius: 4px;
 }
 
-button{
+button {
     padding: 3% 5%;
     margin: 8px 0;
     box-sizing: border-box;
@@ -55,61 +54,60 @@ button{
     font-family: Lato;
     font-size: 18pt;
     font-weight: bold;
-    
 }
 
-.horizontal-flex-box{
+.horizontal-flex-box {
     display: flex;
-    flex-flow:row;
+    flex-flow: row;
     align-items: center;
     justify-content: space-around;
 }
 
-.title{
+.title {
     font-size: 60pt;
 }
 
-.no-stretch{
+.no-stretch {
     flex: 0 0 auto;
 }
 
-.stretch-both{
+.stretch-both {
     flex: 1 1 auto;
 }
 
-.stretch-end{
+.stretch-end {
     flex: 1 1 0;
 }
 
-.tb-margin{
+.tb-margin {
     margin: 20px 0;
 }
 
-.tiny-margin{
+.tiny-margin {
     margin: 10px;
 }
 
-.top-margin{
+.top-margin {
     margin-top: 20px;
 }
 
-.my-header{
+.my-header {
     font-size: 24pt;
     text-align: center;
 }
 
-.my-header-2{
+.my-header-2 {
     text-align: center;
     font-size: 16pt;
 }
 
-.dash{
+.dash {
     border: 1px solid black;
     width: 97%;
     border-radius: 10px;
 }
 
-#dash{
+#dash {
     overflow: auto;
     justify-content: flex-start;
 }
@@ -142,8 +140,8 @@ button{
 
 .active {
     background-color: white;
-    color: black;  
-  }
+    color: black;
+}
 
 .sidenav .closebtn {
     position: absolute;
@@ -155,8 +153,8 @@ button{
 
 .side-menu {
     position: absolute;
-    font-size:60px;
-    cursor:pointer;
+    font-size: 60px;
+    cursor: pointer;
     margin-left: 10px;
 }
 
@@ -164,61 +162,107 @@ button{
     display: none;
 }
 
-.container{
+.container {
     position: relative;
     width: 100%;
 }
 
 @media screen and (max-height: 450px) {
-  .sidenav {padding-top: 15px;}
-  .sidenav a {font-size: 18px;}
+    .sidenav {
+        padding-top: 15px;
+    }
+    .sidenav a {
+        font-size: 18px;
+    }
 }
 
-.width-100{
+.width-100 {
     width: 100%;
     padding: 10px 0;
 }
 
-.fifth{
+.fifth {
     width: 20%;
 }
 
-.tenth{
+.tenth {
     width: 10%;
 }
 
-.headers{
+.headers {
     background-color: #818181;
     font-weight: bold;
 }
 
-.income{
+.income {
     background: #2ecc71;
     border-bottom: 1px solid #27ae60;
 }
 
-.income:hover{
+.income:hover {
     background: #27ae60;
 }
 
-.expense{
+.expense {
     background: #e74c3c;
     border-bottom: 1px solid #c0392b;
 }
 
-.expense:hover{
+.expense:hover {
     background: #c0392b;
 }
 
 .page-title {
-text-align: center;
+    text-align: center;
 }
 
-
+.category-column {
+    margin: 0 5%;
+    width: 30%;
+    height: 100%;
+    box-sizing: border-box;
+    padding-top: 2%;
+}
 
 .add-category {
-    padding: 15px 25px;
+    padding: 7px 15px;
     text-align: center;
     font-size: 24px;
     cursor: pointer;
+}
+
+.categories-box {
+    display: flex;
+    align-items: flex-start;
+    justify-content: center;
+    flex: 1 1 auto;
+    height: 100%;
+}
+
+.list-categories {
+    border: 1px solid black;
+    font-size: 18pt;
+    border-radius: 20px;
+    overflow: auto;
+    text-align: center;
+    margin-bottom: 3%
+}
+
+.border-line {
+    border: 1px solid black;
+    border-radius: 20px;
+    overflow: auto;
+    margin-bottom: 10px
+}
+
+.category-style {
+    padding: 10px 0;
+    margin: 0 10px;
+    border-bottom: 1px solid;
+}
+
+.flex-box2 {
+    display: flex;
+    flex-direction: column;
+    justify-content: flex-start; 
 }
