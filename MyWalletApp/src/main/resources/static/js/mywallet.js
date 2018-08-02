@@ -70,6 +70,7 @@ var helpers = {
     },
 
     fillEditMenu: function(data){
+        $('#right-edit').val(data.id);
         $('#selected-amount').val(data.amount);
         $('#selected-category').val(data.category.id);
         $('#selected-wallet').val(data.wallet.id);
@@ -79,13 +80,13 @@ var helpers = {
 };
 
 $("#add-transaction-form").submit(function (e) {
-    var result = $(this).serialize();
+    var data = $(this).serialize();
     var url = $(this).attr('action');
 
     $.ajax({
         type: "POST",
         url: url,
-        data: result,
+        data: data,
         success: function () {
             updateDashboard();
         }
@@ -93,6 +94,25 @@ $("#add-transaction-form").submit(function (e) {
 
     e.preventDefault();
     $(this).trigger('reset');
+});
+
+$('#edit-transaction-button').on('click', function(e){
+    e.preventDefault();
+
+    var form = $(this).closest('form');
+    var data = form.serialize();
+    console.log(data);
+    console.log('Transaction id is'+$('#right-edit').val());
+    var url = '/mywallet/transactions/update/'+$('#right-edit').val();
+
+    $.ajax({
+        type: "POST",
+        url: url,
+        data: data,
+        success: function () {
+            updateDashboard();
+        }
+    });
 });
 
 $.ajax({
