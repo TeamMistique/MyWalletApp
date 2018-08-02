@@ -47,12 +47,11 @@ var helpers = {
 
     formatDate: function (dateToFormat) {
         var d = new Date(dateToFormat);
-        var month = ['Jan', 'Feb', 'Mar', 'Apr', 'May', 'Jun', 'Jul', 'Aug', 'Sep', 'Oct', 'Nov', 'Dec'];
 
-        var date = d.getDate() + " " + month[d.getMonth()] + ", " + d.getFullYear();
-        var time = d.toLocaleTimeString().toLowerCase();
+        var date = d.getDate() + "/" + d.getMonth() + "/" + d.getFullYear();        
+        var time = d.toLocaleString('en-US', { hour: 'numeric', minute: 'numeric', hour12: true });
 
-        var result = date + " at " + time;
+        var result = date + " " + time;
         return result;
     },
 
@@ -68,6 +67,14 @@ var helpers = {
             });
         };
         place.prepend('<div id="headers" class="horizontal-flex-box headers width-100"><div class="tenth">Category</div><div class="fifth">Notes</div><div class="tenth">Date</div><div class="tenth">Wallet</div><div class="tenth">Amount</div></div>')
+    },
+
+    fillEditMenu: function(data){
+        $('#selected-amount').val(data.amount);
+        $('#selected-category').val(data.category.id);
+        $('#selected-wallet').val(data.wallet.id);
+        $('.dop').val(helpers.formatDate(data.time));
+        $('#selected-notes').val(data.notes);
     }
 };
 
@@ -106,7 +113,7 @@ $.ajax({
     success: function (data) {
         helpers.buildDropdown(
             data,
-            $('#select-wallet'),
+            $('#select-wallet, #selected-wallet'),
             'Select a wallet'
         );
     }
@@ -130,16 +137,10 @@ $.ajax({
     success: function (data) {
         helpers.buildDropdown(
             data,
-            $('#select-category'),
+            $('#select-category, #selected-category'),
             'Select a category'
         );
     }
-});
-
-Date.prototype.toDateInputValue = (function () {
-    var local = new Date(this);
-    local.setMinutes(this.getMinutes() - this.getTimezoneOffset());
-    return local.toJSON().slice(0, 10);
 });
 
 function updateDashboard() {
@@ -156,11 +157,18 @@ $('#dash').on('click', '.income, .expense', function (e) {
     e.stopPropagation();
     $('#right-edit').removeClass('hidden');
     $('#right-add').addClass('hidden');
+    var id = $(this).attr('value');
 
-    
+    $.ajax({
+        type: "POST",
+        url: "/mywallet/transactions/"+id,
+        success: function (data) {
+            helpers.fillEditMenu(data);
+        }
+    })
 });
 
-$('#main-page').on('click', function(e){
+$('#center').on('click', function (e) {
     $('#right-add').removeClass('hidden');
     $('#right-edit').addClass('hidden');
 });

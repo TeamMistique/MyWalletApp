@@ -182,6 +182,11 @@ button{
     padding: 10px 0;
 }
 
+.center-align{
+    text-align: center;
+    width: 100%;
+}
+
 .fifth{
     width: 20%;
 }
