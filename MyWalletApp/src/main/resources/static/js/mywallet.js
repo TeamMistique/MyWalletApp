@@ -68,7 +68,28 @@ var helpers = {
             });
         };
         place.prepend('<div id="headers" class="horizontal-flex-box headers width-100"><div class="tenth">Category</div><div class="fifth">Notes</div><div class="tenth">Date</div><div class="tenth">Wallet</div><div class="tenth">Amount</div></div>')
+    },
+
+    listCategories: function (result, listIncome, listExpense) {
+        //Remove current options
+        listIncome.html('');
+        listExpense.html('');
+
+        //Check result isn't empty
+        if (result !== '') {
+            //Loop through each of the results and append the div to the html
+            $.each(result, function (k, v) {
+                var list = null;
+                if (v.type.id == 1) {
+                    list = listIncome;
+                } else {
+                    list = listExpense;
+                }
+                list.append('<div value="' + v.id + '">' + v.name + '</div>');
+            });
+        }
     }
+
 };
 
 $("#add-transaction-form").submit(function (e) {
@@ -151,3 +172,15 @@ function updateDashboard() {
         }
     });
 };
+
+$.ajax({
+    type: "POST",
+    url: "/mywallet/categories/",
+    success: function (data) {
+        helpers.listCategories(
+            data,
+            $('#list-income-categories'),
+            $('#list-expense-categories'),
+        );
+    }
+});
