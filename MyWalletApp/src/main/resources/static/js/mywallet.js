@@ -15,6 +15,7 @@ $(function () {
         }
 
 
+
         var id = $(this).attr('id');
         var menu = id.substring(5);
         $('body > div').hide();
@@ -91,7 +92,7 @@ $("#add-transaction-form").submit(function (e) {
     $.ajax({
         type: "POST",
         url: url,
-        data: result,
+        data: data,
         success: function () {
             updateDashboard();
         }
