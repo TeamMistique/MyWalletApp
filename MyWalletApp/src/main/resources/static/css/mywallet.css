@@ -27,13 +27,14 @@ body{
     display: none !important;
 }
 
-.inverse-colors{
+.inverse-colors {
     background: black;
     color: white;
 }
 
 .aside{
     padding: 2%;
+
 }
 
 .full-height{
@@ -55,7 +56,6 @@ button{
     box-sizing: border-box;
     border: 2px solid white;
     border-radius: 4px;
-    font-family: Lato;
     font-size: 18pt;
     font-weight: bold;
     
@@ -150,7 +150,7 @@ button{
 
 .sidenav .closebtn {
     position: absolute;
-    top: 0px;
+    top: 0;
     right: 25px;
     font-size: 36px;
     margin-left: 50px;
@@ -195,6 +195,10 @@ button{
     width: 10%;
 }
 
+.third{
+    width: 30%;
+}
+
 .headers{
     background-color: #818181;
     font-weight: bold;
@@ -225,15 +229,52 @@ text-align: center;
 }
 
 .category-column {
-    float: left;
-    border: 1px solid black;
-    width: 40%;
-    margin-left: 5%;
+    margin: 0 5%;
+    width: 30%;
+    height: 100%;
+    box-sizing: border-box;
+    padding-top: 2%;
 }
 
 .add-category {
-    padding: 15px 25px;
+    padding: 7px 15px;
     text-align: center;
     font-size: 24px;
     cursor: pointer;
+}
+
+.categories-box {
+    display: flex;
+    align-items: flex-start;
+    justify-content: center;
+    flex: 1 1 auto;
+    height: 100%;
+}
+
+.list-categories {
+    border: 1px solid black;
+    font-size: 18pt;
+    border-radius: 20px;
+    overflow: auto;
+    text-align: center;
+    margin-bottom: 3%
+}
+
+.border-line {
+    border: 1px solid black;
+    border-radius: 20px;
+    overflow: auto;
+    margin-bottom: 10px
+}
+
+.category-style {
+    padding: 10px 0;
+    margin: 0 10px;
+    border-bottom: 1px solid;
+}
+
+.flex-box2 {
+    display: flex;
+    flex-direction: column;
+    justify-content: flex-start;
 }
