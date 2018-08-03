@@ -2,23 +2,17 @@ $(document).ready(function () {
     updateDashboard();
 });
 
-$(function () {
-    // $('#categories-page').show();
-    // $('#categories-pagee').addClass('active');
-    $('body > div').hide();
-    $('#categories-page').show();
-    $('.sidenav a').on('click', function (e) {
-        e.preventDefault();
-        $('.sidenav a').removeClass('active');
-        if ($(this).attr('id') !== "closebtn") {
-            $(this).addClass('active');
-            var id = $(this).attr('id');
-            var menu = id.substring(5);
-            $('body > div').hide();
-            $('#' + menu + '-page').show();
-        }
-        closeNav();
-    })
+$('.sidenav a').on('click', function (e) {
+    e.preventDefault();
+    $('.sidenav a').removeClass('active');
+    if ($(this).attr('id') !== "closebtn") {
+        $(this).addClass('active');
+        var id = $(this).attr('id');
+        var menu = id.substring(5);
+        $('body > div').hide();
+        $('#' + menu + '-page').show();
+    }
+    closeNav();
 });
 
 function openNav() {
@@ -56,23 +50,35 @@ var helpers = {
             hour12: true
         });
 
-        var result = date + " " + time;
-        return result;
+        return date + " " + time;
+    },
+
+    dateToInput: function (dateToFormat) {
+        var d = new Date(dateToFormat);
+
+        var day = ("0" + d.getDate()).slice(-2);
+        var month = ("0" + (d.getMonth() + 1)).slice(-2);
+
+        return d.getFullYear() + "-" + (month) + "-" + (day);
     },
 
     listTransactions: function (result, place) {
         place.html('');
         place.append('<div id="headers" class="horizontal-flex-box headers width-100"><div class="tenth">Category</div><div class="third">Notes</div><div class="fifth">Date</div><div class="tenth">Wallet</div><div class="tenth">Amount</div></div>')
+        var today = helpers.dateToInput(new Date());
+        $('#from-date').val(today);
+        $('#to-date').val(today);
+
         if (result !== '') {
             $.each(result, function (k, v) {
                 var colorClass = null;
                 if (v.category.type.id == 1) colorClass = "income";
                 else if (v.category.type.id == 2) colorClass = "expense";
                 var date = helpers.formatDate(v.time);
+                $('#from-date').val(helpers.dateToInput(v.time));
                 place.append('<div class="horizontal-flex-box width-100 ' + colorClass + '" value="' + v.id + '"><div class="tenth">' + v.category.name + '</div><div class="third">' + v.notes + '</div><div class="fifth">' + date + '</div><div class="tenth">' + v.wallet.name + '</div><div class="tenth">' + v.amount + '</div></div>');
             });
-        };
-
+        }
     },
 
     fillEditMenu: function (data) {
@@ -127,9 +133,6 @@ $('#edit-transaction-button').on('click', function (e) {
 
     var form = $(this).closest('form');
     var data = form.serialize();
-    console.log(data);
-    console.log(JSON.stringify(data));
-    console.log('Transaction id is ' + $('#right-edit').val());
     var url = '/mywallet/transactions/update/' + $('#right-edit').val();
 
     $.ajax({
@@ -149,7 +152,7 @@ $.ajax({
         helpers.buildDropdown(
             data,
             $('#dash-select-wallet'),
-            'Select a wallet'
+            'All wallets'
         );
     }
 });
@@ -173,7 +176,7 @@ $.ajax({
         helpers.buildDropdown(
             data,
             $('#dash-select-category'),
-            'Select a category'
+            'All categories'
         );
     }
 });
@@ -198,7 +201,7 @@ function updateDashboard() {
             helpers.listTransactions(data, $('#dash'));
         }
     });
-};
+}
 
 $('#dash').on('click', '.income, .expense', function (e) {
     e.stopPropagation();
@@ -215,7 +218,7 @@ $('#dash').on('click', '.income, .expense', function (e) {
     })
 });
 
-$('#center').on('click', function (e) {
+$('#center').on('click', function () {
     $('#right-add').removeClass('hidden');
     $('#right-edit').addClass('hidden');
 });
@@ -227,7 +230,7 @@ $.ajax({
         helpers.listCategories(
             data,
             $('#list-income-categories'),
-            $('#list-expense-categories'),
+            $('#list-expense-categories')
         );
     }
 });

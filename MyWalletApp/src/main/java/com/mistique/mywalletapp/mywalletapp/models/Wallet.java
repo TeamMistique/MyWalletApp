@@ -7,7 +7,7 @@ import java.util.List;
 
 @Entity
 @Table(name = "wallets")
-public class Wallet {
+public class Wallet implements Comparable{
     @Id
     @GeneratedValue(strategy = GenerationType.IDENTITY)
     @Column(name = "WalletID")
@@ -61,5 +61,11 @@ public class Wallet {
 
     public void setTransactions(List<Transaction> transactions) {
         this.transactions = transactions;
+    }
+
+    @Override
+    public int compareTo(Object o) {
+        Wallet w = (Wallet) o;
+        return Integer.compare(this.getId(), w.getId());
     }
 }
