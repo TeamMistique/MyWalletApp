@@ -3,13 +3,17 @@ $(document).ready(function () {
 });
 
 $(function () {
-    $('#main-page').show();
-    $('#show-main').addClass('active');
-
+    // $('#categories-page').show();
+    // $('#categories-pagee').addClass('active');
+    $('body > div').hide();
+    $('#categories-page').show();
     $('.sidenav a').on('click', function (e) {
         e.preventDefault();
         $('.sidenav a').removeClass('active');
-        $(this).addClass('active');
+        if($(this).attr('id')!== "closebtn"){
+            $(this).addClass('active');
+        }
+
 
         var id = $(this).attr('id');
         var menu = id.substring(5);
@@ -48,7 +52,7 @@ var helpers = {
     formatDate: function (dateToFormat) {
         var d = new Date(dateToFormat);
 
-        var date = d.getDate() + "/" + d.getMonth() + "/" + d.getFullYear();        
+        var date = d.getMonth()+1 + "/" + d.getDate() + "/" + d.getFullYear();
         var time = d.toLocaleString('en-US', { hour: 'numeric', minute: 'numeric', hour12: true });
 
         var result = date + " " + time;
@@ -57,16 +61,17 @@ var helpers = {
 
     listTransactions: function (result, place) {
         place.html('');
+        place.append('<div id="headers" class="horizontal-flex-box headers width-100"><div class="tenth">Category</div><div class="third">Notes</div><div class="fifth">Date</div><div class="tenth">Wallet</div><div class="tenth">Amount</div></div>')
         if (result !== '') {
             $.each(result, function (k, v) {
                 var colorClass = null;
                 if (v.category.type.id == 1) colorClass = "income";
                 else if (v.category.type.id == 2) colorClass = "expense";
                 var date = helpers.formatDate(v.time);
-                place.prepend('<div class="horizontal-flex-box width-100 ' + colorClass + '" value="' + v.id + '"><div class="tenth">' + v.category.name + '</div><div class="tenth">' + v.notes + '</div><div class="fifth">' + date + '</div><div class="tenth">' + v.wallet.name + '</div><div class="tenth">' + v.amount + '</div></div>');
+                place.append('<div class="horizontal-flex-box width-100 ' + colorClass + '" value="' + v.id + '"><div class="tenth">' + v.category.name + '</div><div class="third">' + v.notes + '</div><div class="fifth">' + date + '</div><div class="tenth">' + v.wallet.name + '</div><div class="tenth">' + v.amount + '</div></div>');
             });
         };
-        place.prepend('<div id="headers" class="horizontal-flex-box headers width-100"><div class="tenth">Category</div><div class="fifth">Notes</div><div class="tenth">Date</div><div class="tenth">Wallet</div><div class="tenth">Amount</div></div>')
+
     },
 
     fillEditMenu: function(data){
@@ -86,7 +91,7 @@ $("#add-transaction-form").submit(function (e) {
     $.ajax({
         type: "POST",
         url: url,
-        data: data,
+        data: result,
         success: function () {
             updateDashboard();
         }
@@ -192,4 +197,16 @@ $('#dash').on('click', '.income, .expense', function (e) {
 $('#center').on('click', function (e) {
     $('#right-add').removeClass('hidden');
     $('#right-edit').addClass('hidden');
+});
+
+$.ajax({
+    type: "POST",
+    url: "/mywallet/categories/",
+    success: function (data) {
+        helpers.listCategories(
+            data,
+            $('#list-income-categories'),
+            $('#list-expense-categories'),
+        );
+    }
 });
