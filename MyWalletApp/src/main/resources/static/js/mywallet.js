@@ -71,7 +71,7 @@ var helpers = {
 
     fillEditMenu: function(data){
         $('#right-edit').val(data.id);
-        $('#selected-amount').val(data.amount);
+        $('#selected-amount').val(Math.abs(data.amount));
         $('#selected-category').val(data.category.id);
         $('#selected-wallet').val(data.wallet.id);
         $('.dop').val(helpers.formatDate(data.time));
@@ -102,11 +102,12 @@ $('#edit-transaction-button').on('click', function(e){
     var form = $(this).closest('form');
     var data = form.serialize();
     console.log(data);
-    console.log('Transaction id is'+$('#right-edit').val());
+    console.log(JSON.stringify(data));
+    console.log('Transaction id is '+$('#right-edit').val());
     var url = '/mywallet/transactions/update/'+$('#right-edit').val();
 
     $.ajax({
-        type: "POST",
+        type: "PUT",
         url: url,
         data: data,
         success: function () {

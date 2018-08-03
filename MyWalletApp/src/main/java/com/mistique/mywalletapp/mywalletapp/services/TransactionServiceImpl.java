@@ -25,9 +25,11 @@ public class TransactionServiceImpl implements TransactionService {
 
     @Override
     public void create(double amount, Date time, Wallet wallet, Category category, String notes) {
+        amount = Math.abs(amount);
         if(category.getType().getId()==2){
             amount = -amount;
         }
+
         Transaction transaction = new Transaction(amount, time, wallet, category, notes);
         repository.create(transaction);
         walletService.update(wallet.getId(), wallet.getBalance()+transaction.getAmount());
@@ -44,57 +46,27 @@ public class TransactionServiceImpl implements TransactionService {
     }
 
     @Override
-    public void update(int id, double amount) {
-        Transaction transaction = repository.findById(id);
-        Wallet wallet = transaction.getWallet();
-        double newBalance = wallet.getBalance()-transaction.getAmount();
-        walletService.update(wallet.getId(), newBalance);
-        if(transaction.getCategory().getType().getId()==2){
+    public void update(int id, double amount, Date time, Wallet wallet, Category category, String notes) {
+        amount = Math.abs(amount);
+        if(category.getType().getId()==2){
             amount = -amount;
         }
-        transaction.setAmount(amount);
-        newBalance = newBalance+amount;
-        repository.update(id, transaction);
-        walletService.update(wallet.getId(), newBalance);
-    }
 
-    @Override
-    public void update(int id, Date time) {
-        Transaction transaction = repository.findById(id);
-        transaction.setTime(time);
-        repository.update(id, transaction);
-    }
+        Transaction updatedTransaction = new Transaction(amount, time, wallet, category, notes);
+        Transaction originalTransaction = repository.findById(id);
 
-    @Override
-    public void update(int id, Wallet wallet) {
-        Transaction transaction = repository.findById(id);
-        Wallet oldWallet = transaction.getWallet();
-        walletService.update(oldWallet.getId(), oldWallet.getBalance()-transaction.getAmount());
-        walletService.update(wallet.getId(), wallet.getBalance()+transaction.getAmount());
-        transaction.setWallet(wallet);
-        repository.update(id, transaction);
-    }
+        //Set the original transaction's wallet's balance to the way it was prior to that transaction.
+        Wallet oldWallet = originalTransaction.getWallet();
+        double newBalance = oldWallet.getBalance()-originalTransaction.getAmount();
+        walletService.update(oldWallet.getId(), newBalance);
 
-    @Override
-    public void update(int id, Category category) {
-        Transaction transaction = repository.findById(id);
-        Category oldCategory = transaction.getCategory();
-        transaction.setCategory(category);
+        //Set the new wallet's balance.
+        Wallet newWallet = updatedTransaction.getWallet();
+        newBalance = newWallet.getBalance()+updatedTransaction.getAmount();
+        walletService.update(newWallet.getId(), newBalance);
 
-        if(oldCategory.getType().getId()!=category.getType().getId()){
-            transaction.setAmount(-transaction.getAmount());
-            Wallet wallet = transaction.getWallet();
-            walletService.update(wallet.getId(), wallet.getBalance()+2*transaction.getAmount());
-        }
-
-        repository.update(id, transaction);
-    }
-
-    @Override
-    public void update(int id, String notes) {
-        Transaction transaction = repository.findById(id);
-        transaction.setNotes(notes);
-        repository.update(id, transaction);
+        //Update the transaction.
+        repository.update(id, updatedTransaction);
     }
 
     @Override

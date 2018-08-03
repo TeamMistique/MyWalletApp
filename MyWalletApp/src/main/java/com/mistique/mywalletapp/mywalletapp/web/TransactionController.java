@@ -24,6 +24,7 @@ public class TransactionController {
     private TransactionService service;
     private WalletService walletService;
     private CategoryService categoryService;
+    private final DateFormat df = new SimpleDateFormat("MM/dd/yyyy KK:mm a", Locale.ENGLISH);
 
     @Autowired
     public TransactionController(TransactionService service, WalletService walletService, CategoryService categoryService) {
@@ -44,37 +45,24 @@ public class TransactionController {
 
     @RequestMapping(value = "/add", method = RequestMethod.POST)
     public void addTransaction(@RequestParam double amount, @RequestParam String time, @RequestParam int walletID,
-                               @RequestParam int categoryID, @RequestParam(required = false) String notes) throws ParseException {
+                               @RequestParam int categoryID, @RequestParam String notes) throws ParseException {
         Wallet wallet = walletService.getById(walletID);
         Category category = categoryService.getById(categoryID);
-
-        DateFormat df = new SimpleDateFormat("MM/dd/yyyy KK:mm a", Locale.ENGLISH);
         Date date = df.parse(time);
-        System.out.println(date);
 
         service.create(amount, date, wallet, category, notes);
     }
 
     @RequestMapping(value = "/update/{id}", method = RequestMethod.PUT)
-    public void update(@PathVariable("id") String id, @RequestParam(required = false) Double amount,
-                       @RequestParam(required = false) String time, @RequestParam(required = false) Integer walletID,
-                       @RequestParam(required = false) Integer categoryID, @RequestParam(required = false) String notes) {
+    public void update(@PathVariable("id") String id, @RequestParam Double amount,
+                       @RequestParam String time, @RequestParam Integer walletID,
+                       @RequestParam Integer categoryID, @RequestParam String notes) throws ParseException {
         int idInt = Integer.parseInt(id);
-        if (amount != null) {
-            service.update(idInt, amount);
-        }
-        if (time != null) {
-            service.update(idInt, time);
-        }
-        if (walletID != null) {
-            service.update(idInt, walletService.getById(walletID));
-        }
-        if (categoryID != null) {
-            service.update(idInt, categoryService.getById(categoryID));
-        }
-        if (notes != null) {
-            service.update(idInt, notes);
-        }
+        Wallet wallet = walletService.getById(walletID);
+        Category category = categoryService.getById(categoryID);
+        Date date = df.parse(time);
+
+        service.update(idInt, amount, date, wallet, category, notes);
     }
 
     @RequestMapping(value = "/delete/{id}", method = RequestMethod.DELETE)
