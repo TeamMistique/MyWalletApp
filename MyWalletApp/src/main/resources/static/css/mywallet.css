@@ -195,6 +195,10 @@ button{
     width: 10%;
 }
 
+.third{
+    width: 30%;
+}
+
 .headers{
     background-color: #818181;
     font-weight: bold;
