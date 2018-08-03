@@ -13,7 +13,7 @@ $(function () {
         if($(this).attr('id')!== "closebtn"){
             $(this).addClass('active');
         }
-        
+
 
         var id = $(this).attr('id');
         var menu = id.substring(5);
@@ -51,53 +51,41 @@ var helpers = {
 
     formatDate: function (dateToFormat) {
         var d = new Date(dateToFormat);
-        var month = ['Jan', 'Feb', 'Mar', 'Apr', 'May', 'Jun', 'Jul', 'Aug', 'Sep', 'Oct', 'Nov', 'Dec'];
 
-        var date = d.getDate() + " " + month[d.getMonth()] + ", " + d.getFullYear();
-        var time = d.toLocaleTimeString().toLowerCase();
+        var date = d.getMonth()+1 + "/" + d.getDate() + "/" + d.getFullYear();
+        var time = d.toLocaleString('en-US', { hour: 'numeric', minute: 'numeric', hour12: true });
 
-        var result = date + " at " + time;
+        var result = date + " " + time;
         return result;
     },
 
     listTransactions: function (result, place) {
         place.html('');
+        place.append('<div id="headers" class="horizontal-flex-box headers width-100"><div class="tenth">Category</div><div class="third">Notes</div><div class="fifth">Date</div><div class="tenth">Wallet</div><div class="tenth">Amount</div></div>')
         if (result !== '') {
             $.each(result, function (k, v) {
                 var colorClass = null;
                 if (v.category.type.id == 1) colorClass = "income";
                 else if (v.category.type.id == 2) colorClass = "expense";
                 var date = helpers.formatDate(v.time);
-                place.prepend('<div class="horizontal-flex-box width-100 ' + colorClass + '" value="' + v.id + '"><div class="tenth">' + v.category.name + '</div><div class="tenth">' + v.notes + '</div><div class="fifth">' + date + '</div><div class="tenth">' + v.wallet.name + '</div><div class="tenth">' + v.amount + '</div></div>');
+                place.append('<div class="horizontal-flex-box width-100 ' + colorClass + '" value="' + v.id + '"><div class="tenth">' + v.category.name + '</div><div class="third">' + v.notes + '</div><div class="fifth">' + date + '</div><div class="tenth">' + v.wallet.name + '</div><div class="tenth">' + v.amount + '</div></div>');
             });
         };
-        place.prepend('<div id="headers" class="horizontal-flex-box headers width-100"><div class="tenth">Category</div><div class="fifth">Notes</div><div class="tenth">Date</div><div class="tenth">Wallet</div><div class="tenth">Amount</div></div>')
+
     },
 
-    listCategories: function (result, listIncome, listExpense) {
-        //Remove current options
-        listIncome.html('');
-        listExpense.html('');
-
-        //Check result isn't empty
-        if (result !== '') {
-            //Loop through each of the results and append the div to the html
-            $.each(result, function (k, v) {
-                var list = null;
-                if (v.type.id == 1) {
-                    list = listIncome;
-                } else {
-                    list = listExpense;
-                }
-                list.append('<div class="category-style" value="' + v.id + '">' + v.name + '</div>');
-            });
-        }
+    fillEditMenu: function(data){
+        $('#right-edit').val(data.id);
+        $('#selected-amount').val(Math.abs(data.amount));
+        $('#selected-category').val(data.category.id);
+        $('#selected-wallet').val(data.wallet.id);
+        $('.dop').val(helpers.formatDate(data.time));
+        $('#selected-notes').val(data.notes);
     }
-
 };
 
 $("#add-transaction-form").submit(function (e) {
-    var result = $(this).serialize();
+    var data = $(this).serialize();
     var url = $(this).attr('action');
 
     $.ajax({
@@ -111,6 +99,26 @@ $("#add-transaction-form").submit(function (e) {
 
     e.preventDefault();
     $(this).trigger('reset');
+});
+
+$('#edit-transaction-button').on('click', function(e){
+    e.preventDefault();
+
+    var form = $(this).closest('form');
+    var data = form.serialize();
+    console.log(data);
+    console.log(JSON.stringify(data));
+    console.log('Transaction id is '+$('#right-edit').val());
+    var url = '/mywallet/transactions/update/'+$('#right-edit').val();
+
+    $.ajax({
+        type: "PUT",
+        url: url,
+        data: data,
+        success: function () {
+            updateDashboard();
+        }
+    });
 });
 
 $.ajax({
@@ -131,7 +139,7 @@ $.ajax({
     success: function (data) {
         helpers.buildDropdown(
             data,
-            $('#select-wallet'),
+            $('#select-wallet, #selected-wallet'),
             'Select a wallet'
         );
     }
@@ -155,16 +163,10 @@ $.ajax({
     success: function (data) {
         helpers.buildDropdown(
             data,
-            $('#select-category'),
+            $('#select-category, #selected-category'),
             'Select a category'
         );
     }
-});
-
-Date.prototype.toDateInputValue = (function () {
-    var local = new Date(this);
-    local.setMinutes(this.getMinutes() - this.getTimezoneOffset());
-    return local.toJSON().slice(0, 10);
 });
 
 function updateDashboard() {
@@ -176,6 +178,26 @@ function updateDashboard() {
         }
     });
 };
+
+$('#dash').on('click', '.income, .expense', function (e) {
+    e.stopPropagation();
+    $('#right-edit').removeClass('hidden');
+    $('#right-add').addClass('hidden');
+    var id = $(this).attr('value');
+
+    $.ajax({
+        type: "POST",
+        url: "/mywallet/transactions/"+id,
+        success: function (data) {
+            helpers.fillEditMenu(data);
+        }
+    })
+});
+
+$('#center').on('click', function (e) {
+    $('#right-add').removeClass('hidden');
+    $('#right-edit').addClass('hidden');
+});
 
 $.ajax({
     type: "POST",

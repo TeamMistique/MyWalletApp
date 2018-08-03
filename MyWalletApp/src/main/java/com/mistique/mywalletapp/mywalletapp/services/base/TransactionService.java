@@ -14,15 +14,7 @@ public interface TransactionService {
 
     Transaction getById(int id);
 
-    void update(int id, double amount);
-
-    void update(int id, Date time);
-
-    void update(int id, Wallet wallet);
-
-    void update(int id, Category category);
-
-    void update(int id, String notes);
+    void update(int id, double amount, Date time, Wallet wallet, Category category, String notes);
 
     void delete(int id);
 }

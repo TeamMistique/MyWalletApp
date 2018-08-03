@@ -1,4 +1,4 @@
-body {
+body{
     position: absolute;
     margin: 0;
     padding: 0;
@@ -10,17 +10,21 @@ body {
     font-family: "Lato", sans-serif;
 }
 
-.main-page {
+.main-page{
     margin-left: 3%;
     width: 97%;
     height: 100%;
 }
 
-.flex-box {
+.flex-box{
     display: flex;
-    flex-flow: column;
+    flex-flow:column;
     align-items: center;
     justify-content: space-around;
+}
+
+.hidden{
+    display: none !important;
 }
 
 .inverse-colors {
@@ -28,15 +32,16 @@ body {
     color: white;
 }
 
-.aside {
+.aside{
     padding: 2%;
+
 }
 
-.full-height {
+.full-height{
     height: 100%;
 }
 
-.pretty-input {
+.pretty-input{
     width: 100%;
     padding: 2% 3%;
     margin: 8px 0;
@@ -45,69 +50,69 @@ body {
     border-radius: 4px;
 }
 
-button {
+button{
     padding: 3% 5%;
     margin: 8px 0;
     box-sizing: border-box;
     border: 2px solid white;
     border-radius: 4px;
-    font-family: Lato;
     font-size: 18pt;
     font-weight: bold;
+    
 }
 
-.horizontal-flex-box {
+.horizontal-flex-box{
     display: flex;
-    flex-flow: row;
+    flex-flow:row;
     align-items: center;
     justify-content: space-around;
 }
 
-.title {
+.title{
     font-size: 60pt;
 }
 
-.no-stretch {
+.no-stretch{
     flex: 0 0 auto;
 }
 
-.stretch-both {
+.stretch-both{
     flex: 1 1 auto;
 }
 
-.stretch-end {
+.stretch-end{
     flex: 1 1 0;
 }
 
-.tb-margin {
+.tb-margin{
     margin: 20px 0;
 }
 
-.tiny-margin {
+.tiny-margin{
     margin: 10px;
 }
 
-.top-margin {
+.top-margin{
     margin-top: 20px;
 }
 
-.my-header {
+.my-header{
     font-size: 24pt;
     text-align: center;
 }
 
-.my-header-2 {
+.my-header-2{
     text-align: center;
     font-size: 16pt;
 }
 
-.dash {
+.dash{
     border: 1px solid black;
     width: 97%;
     border-radius: 10px;
 }
 
-#dash {
+#dash{
     overflow: auto;
     justify-content: flex-start;
 }
@@ -140,12 +145,12 @@ button {
 
 .active {
     background-color: white;
-    color: black;
-}
+    color: black;  
+  }
 
 .sidenav .closebtn {
     position: absolute;
-    top: 0px;
+    top: 0;
     right: 25px;
     font-size: 36px;
     margin-left: 50px;
@@ -153,8 +158,8 @@ button {
 
 .side-menu {
     position: absolute;
-    font-size: 60px;
-    cursor: pointer;
+    font-size:60px;
+    cursor:pointer;
     margin-left: 10px;
 }
 
@@ -162,58 +167,65 @@ button {
     display: none;
 }
 
-.container {
+.container{
     position: relative;
     width: 100%;
 }
 
 @media screen and (max-height: 450px) {
-    .sidenav {
-        padding-top: 15px;
-    }
-    .sidenav a {
-        font-size: 18px;
-    }
+  .sidenav {padding-top: 15px;}
+  .sidenav a {font-size: 18px;}
 }
 
-.width-100 {
+.width-100{
     width: 100%;
     padding: 10px 0;
 }
 
-.fifth {
+.center-align{
+    text-align: center;
+    width: 100%;
+}
+
+.fifth{
     width: 20%;
 }
 
-.tenth {
+.tenth{
     width: 10%;
 }
 
-.headers {
+.third{
+    width: 30%;
+}
+
+.headers{
     background-color: #818181;
     font-weight: bold;
 }
 
-.income {
+.income{
     background: #2ecc71;
     border-bottom: 1px solid #27ae60;
 }
 
-.income:hover {
+.income:hover{
     background: #27ae60;
+    cursor: pointer;
 }
 
-.expense {
+.expense{
     background: #e74c3c;
     border-bottom: 1px solid #c0392b;
 }
 
-.expense:hover {
+.expense:hover{
     background: #c0392b;
+    cursor: pointer;
 }
 
 .page-title {
-    text-align: center;
+text-align: center;
 }
 
 .category-column {
@@ -264,5 +276,5 @@ button {
 .flex-box2 {
     display: flex;
     flex-direction: column;
-    justify-content: flex-start; 
+    justify-content: flex-start;
 }

@@ -48,7 +48,7 @@
             </div>
         </div>
 
-        <div id="right" class="no-stretch inverse-colors full-height aside flex-box">
+        <div id="right-add" class="no-stretch inverse-colors full-height aside flex-box">
             <div id="add-transaction-title" class="tiny-margin my-header no-stretch">NEW
                 <br> TRANSACTION</div>
             <div id="new-transaction-menu stretch-both">
@@ -79,6 +79,44 @@
                     <button type="submit" id="add-transaction-button" class="tiny-margin no-stretch">
                         <i class="fas fa-plus"></i>
                     </button>
+                </form>
+            </div>
+        </div>
+
+        <div id="right-edit" class="no-stretch inverse-colors full-height aside flex-box hidden">
+            <div id="add-transaction-title" class="tiny-margin my-header no-stretch">EDIT
+                <br> TRANSACTION</div>
+            <div id="new-transaction-menu stretch-both">
+                <form id="edit-transaction-form" action="" method="POST" class="flex-box">
+                    Amount:
+                    <input type="text" name="amount" id="selected-amount" placeholder="Amount" class="tiny-margin no-stretch pretty-input"> Category:
+                    <select name="categoryID" id="selected-category" class="tiny-margin no-stretch pretty-input"></select>
+                    Wallet:
+                    <select name="walletID" id="selected-wallet" class="tiny-margin no-stretch pretty-input"></select>
+                    Date:
+                    <div class="container">
+                        <div class="row">
+                            <div class="col-sm-6">
+                                <input name="time" type="text" class="form-control datetimepicker-input pretty-input dop" id="datetimepicker51" data-toggle="datetimepicker"
+                                    data-target="#datetimepicker51" />
+                            </div>
+                            <script type="text/javascript">
+                                $(function () {
+                                    $('#datetimepicker51').datetimepicker();
+                                });
+                            </script>
+                        </div>
+                    </div>
+                    Notes:
+                    <textarea name="notes" id="selected-notes" cols="30" rows="10" class="tiny-margin pretty-input" placeholder="Add your notes here..."></textarea>
+                    <div class="no-stretch center-align">
+                        <button id="edit-transaction-button" class="tiny-margin">
+                            <i class="far fa-save"></i>
+                        </button>
+                        <button id="delete-transaction-button" class="tiny-margin">
+                            <i class="fas fa-trash-alt"></i>
+                        </button>
+                    </div>
                 </form>
             </div>
         </div>

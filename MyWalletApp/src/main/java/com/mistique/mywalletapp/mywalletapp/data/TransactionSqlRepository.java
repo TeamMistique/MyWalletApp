@@ -25,7 +25,7 @@ public class TransactionSqlRepository extends AbstractGenericRepository<Transact
         List<Transaction> transactions = new ArrayList<>();
         try (Session session = factory.openSession()) {
             session.beginTransaction();
-            transactions = session.createQuery("FROM Transaction").list();
+            transactions = session.createQuery("FROM Transaction t ORDER BY t.time DESC").list();
             session.getTransaction().commit();
         } catch (Exception e) {
             System.out.println(e.getMessage());
