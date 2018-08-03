@@ -10,17 +10,13 @@ $(function () {
     $('.sidenav a').on('click', function (e) {
         e.preventDefault();
         $('.sidenav a').removeClass('active');
-        if($(this).attr('id')!== "closebtn"){
+        if ($(this).attr('id') !== "closebtn") {
             $(this).addClass('active');
+            var id = $(this).attr('id');
+            var menu = id.substring(5);
+            $('body > div').hide();
+            $('#' + menu + '-page').show();
         }
-
-
-
-        var id = $(this).attr('id');
-        var menu = id.substring(5);
-        $('body > div').hide();
-        $('#' + menu + '-page').show();
-
         closeNav();
     })
 });
@@ -53,8 +49,12 @@ var helpers = {
     formatDate: function (dateToFormat) {
         var d = new Date(dateToFormat);
 
-        var date = d.getMonth()+1 + "/" + d.getDate() + "/" + d.getFullYear();
-        var time = d.toLocaleString('en-US', { hour: 'numeric', minute: 'numeric', hour12: true });
+        var date = d.getMonth() + 1 + "/" + d.getDate() + "/" + d.getFullYear();
+        var time = d.toLocaleString('en-US', {
+            hour: 'numeric',
+            minute: 'numeric',
+            hour12: true
+        });
 
         var result = date + " " + time;
         return result;
@@ -75,13 +75,33 @@ var helpers = {
 
     },
 
-    fillEditMenu: function(data){
+    fillEditMenu: function (data) {
         $('#right-edit').val(data.id);
         $('#selected-amount').val(Math.abs(data.amount));
         $('#selected-category').val(data.category.id);
         $('#selected-wallet').val(data.wallet.id);
         $('.dop').val(helpers.formatDate(data.time));
         $('#selected-notes').val(data.notes);
+    },
+
+    listCategories: function (result, listIncome, listExpense) {
+        //Remove current options
+        listIncome.html('');
+        listExpense.html('');
+
+        //Check result isn't empty
+        if (result !== '') {
+            //Loop through each of the results and append the div to the html
+            $.each(result, function (k, v) {
+                var list = null;
+                if (v.type.id == 1) {
+                    list = listIncome;
+                } else {
+                    list = listExpense;
+                }
+                list.append('<div class="category-style" value="' + v.id + '">' + v.name + '</div>');
+            });
+        }
     }
 };
 
@@ -102,15 +122,15 @@ $("#add-transaction-form").submit(function (e) {
     $(this).trigger('reset');
 });
 
-$('#edit-transaction-button').on('click', function(e){
+$('#edit-transaction-button').on('click', function (e) {
     e.preventDefault();
 
     var form = $(this).closest('form');
     var data = form.serialize();
     console.log(data);
     console.log(JSON.stringify(data));
-    console.log('Transaction id is '+$('#right-edit').val());
-    var url = '/mywallet/transactions/update/'+$('#right-edit').val();
+    console.log('Transaction id is ' + $('#right-edit').val());
+    var url = '/mywallet/transactions/update/' + $('#right-edit').val();
 
     $.ajax({
         type: "PUT",
@@ -188,7 +208,7 @@ $('#dash').on('click', '.income, .expense', function (e) {
 
     $.ajax({
         type: "POST",
-        url: "/mywallet/transactions/"+id,
+        url: "/mywallet/transactions/" + id,
         success: function (data) {
             helpers.fillEditMenu(data);
         }
