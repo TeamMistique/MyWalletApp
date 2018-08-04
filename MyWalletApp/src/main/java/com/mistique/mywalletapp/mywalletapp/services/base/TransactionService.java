@@ -12,6 +12,8 @@ public interface TransactionService {
 
     List<Transaction> getAll();
 
+    List<Transaction> filter(Wallet wallet, Category category, Date fromDate, Date endDate);
+
     Transaction getById(int id);
 
     void update(int id, double amount, Date time, Wallet wallet, Category category, String notes);

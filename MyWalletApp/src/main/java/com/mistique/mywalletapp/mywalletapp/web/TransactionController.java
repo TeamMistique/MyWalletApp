@@ -25,6 +25,7 @@ public class TransactionController {
     private WalletService walletService;
     private CategoryService categoryService;
     private final DateFormat df = new SimpleDateFormat("MM/dd/yyyy KK:mm a", Locale.ENGLISH);
+    private final DateFormat dateOnly = new SimpleDateFormat("MM/dd/yyyy");
 
     @Autowired
     public TransactionController(TransactionService service, WalletService walletService, CategoryService categoryService) {
@@ -36,6 +37,14 @@ public class TransactionController {
     @RequestMapping("/")
     public List<Transaction> getAll() {
         return service.getAll();
+    }
+
+    @RequestMapping("/filter")
+    public List<Transaction> filter(@RequestParam int walletID, @RequestParam int categoryID, @RequestParam String startDate, @RequestParam String endDate) throws ParseException {
+        Wallet wallet = walletService.getById(walletID);
+        Category category = categoryService.getById(categoryID);
+
+        return service.filter(wallet, category, dateOnly.parse(startDate), dateOnly.parse(endDate));
     }
 
     @RequestMapping("/{id}")

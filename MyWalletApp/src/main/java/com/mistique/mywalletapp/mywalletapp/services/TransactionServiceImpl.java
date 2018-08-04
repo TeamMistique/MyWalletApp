@@ -11,6 +11,7 @@ import org.springframework.stereotype.Service;
 
 import java.util.Date;
 import java.util.List;
+import java.util.stream.Collectors;
 
 @Service
 public class TransactionServiceImpl implements TransactionService {
@@ -38,6 +39,16 @@ public class TransactionServiceImpl implements TransactionService {
     @Override
     public List<Transaction> getAll() {
         return repository.listAll();
+    }
+
+    @Override
+    public List<Transaction> filter(Wallet wallet, Category category, Date fromDate, Date endDate) {
+        return repository.modelStream()
+                .filter(x -> x.getWallet().getId()==wallet.getId())
+                .filter(x -> x.getCategory().getId()==category.getId())
+                .filter(x -> x.getTime().compareTo(fromDate)>=0)
+                .filter(x -> x.getTime().compareTo(endDate)<=0)
+                .collect(Collectors.toList());
     }
 
     @Override
