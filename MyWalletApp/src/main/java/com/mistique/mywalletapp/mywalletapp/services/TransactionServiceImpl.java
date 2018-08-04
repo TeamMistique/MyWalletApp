@@ -43,12 +43,25 @@ public class TransactionServiceImpl implements TransactionService {
 
     @Override
     public List<Transaction> filter(Wallet wallet, Category category, Date fromDate, Date endDate) {
-        return repository.modelStream()
-                .filter(x -> x.getWallet().getId()==wallet.getId())
-                .filter(x -> x.getCategory().getId()==category.getId())
-                .filter(x -> x.getTime().compareTo(fromDate)>=0)
-                .filter(x -> x.getTime().compareTo(endDate)<=0)
-                .collect(Collectors.toList());
+        List<Transaction> result = repository.listAll();
+
+        if(wallet!=null){
+            result = result.stream().filter(x -> x.getWallet().getId()==wallet.getId()).collect(Collectors.toList());
+        }
+
+        if(category!=null){
+            result = result.stream().filter(x -> x.getCategory().getId()==category.getId()).collect(Collectors.toList());
+        }
+
+        if(fromDate!=null){
+            result = result.stream().filter(x -> x.getTime().compareTo(fromDate)>=0).collect(Collectors.toList());
+        }
+
+        if(endDate!=null){
+            result = result.stream().filter(x -> x.getTime().compareTo(endDate)<=0).collect(Collectors.toList());
+        }
+
+        return result;
     }
 
     @Override

@@ -16,11 +16,11 @@ $('.sidenav a').on('click', function (e) {
 });
 
 function openNav() {
-    document.getElementById("sidenav").style.width = "250px";
+    $('#sidenav').css('width', '250px');
 }
 
 function closeNav() {
-    document.getElementById("sidenav").style.width = "0";
+    $('#sidenav').css('width', '0');
 }
 
 var helpers = {
@@ -53,29 +53,17 @@ var helpers = {
         return date + " " + time;
     },
 
-    dateToInput: function (dateToFormat) {
-        var d = new Date(dateToFormat);
-
-        var day = ("0" + d.getDate()).slice(-2);
-        var month = ("0" + (d.getMonth() + 1)).slice(-2);
-
-        return d.getFullYear() + "-" + (month) + "-" + (day);
-    },
-
-    listTransactions: function (result, place) {
+    listTransactions: function (result) {
+        var place =  $('#dash');
         place.html('');
-        place.append('<div id="headers" class="horizontal-flex-box headers width-100"><div class="tenth">Category</div><div class="third">Notes</div><div class="fifth">Date</div><div class="tenth">Wallet</div><div class="tenth">Amount</div></div>')
-        var today = helpers.dateToInput(new Date());
-        $('#from-date').val(today);
-        $('#to-date').val(today);
+        place.append('<div id="headers" class="horizontal-flex-box headers width-100"><div class="tenth">Category</div><div class="third">Notes</div><div class="fifth">Date</div><div class="tenth">Wallet</div><div class="tenth">Amount</div></div>');
 
         if (result !== '') {
             $.each(result, function (k, v) {
                 var colorClass = null;
-                if (v.category.type.id == 1) colorClass = "income";
-                else if (v.category.type.id == 2) colorClass = "expense";
+                if (v.category.type.id === 1) colorClass = "income";
+                else if (v.category.type.id === 2) colorClass = "expense";
                 var date = helpers.formatDate(v.time);
-                $('#from-date').val(helpers.dateToInput(v.time));
                 place.append('<div class="horizontal-flex-box width-100 ' + colorClass + '" value="' + v.id + '"><div class="tenth">' + v.category.name + '</div><div class="third">' + v.notes + '</div><div class="fifth">' + date + '</div><div class="tenth">' + v.wallet.name + '</div><div class="tenth">' + v.amount + '</div></div>');
             });
         }
@@ -100,7 +88,7 @@ var helpers = {
             //Loop through each of the results and append the div to the html
             $.each(result, function (k, v) {
                 var list = null;
-                if (v.type.id == 1) {
+                if (v.type.id === 1) {
                     list = listIncome;
                 } else {
                     list = listExpense;
@@ -198,7 +186,7 @@ function updateDashboard() {
         type: "POST",
         url: "/mywallet/transactions/",
         success: function (data) {
-            helpers.listTransactions(data, $('#dash'));
+            helpers.listTransactions(data);
         }
     });
 }
@@ -234,3 +222,22 @@ $.ajax({
         );
     }
 });
+
+$('#dash-select-wallet, #dash-select-category, #from-date, #to-date').on('change', submitDash);
+
+function submitDash(){
+    var $form = $('#dash-form');
+    var url = $form.attr('action');
+    var data = $form.serialize();
+    console.log(data);
+
+    $.ajax({
+        type: "POST",
+        url: url,
+        data: data,
+        success: function(result){
+            console.log(result);
+            helpers.listTransactions(result);
+        }
+    });
+}

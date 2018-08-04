@@ -35,11 +35,11 @@
             <div id="full-dash" class="stretch-both tb-margin dash flex-box">
                 <div id="dash-menu" class="no-stretch top-margin">
                     <div id="dash-title" class="tiny-margin my-header">Dashboard</div>
-                    <form action="" method="get">
-                        <select name="wallet" id="dash-select-wallet"></select>
-                        <select name="category" id="dash-select-category"></select>
-                        <input type="date" name="from-date" id="from-date">
-                        <input type="date" name="to-date" id="to-date">
+                    <form id="dash-form" action="/mywallet/transactions/filter" method="post">
+                        <select name="walletID" id="dash-select-wallet"></select>
+                        <select name="categoryID" id="dash-select-category"></select>
+                        <input type="date" name="startDate" id="from-date">
+                        <input type="date" name="endDate" id="to-date">
                     </form>
                 </div>
                 <div id="dash" class="dash stretch-both tb-margin flex-box">
