@@ -43,7 +43,13 @@ var helpers = {
     formatDate: function (dateToFormat) {
         var d = new Date(dateToFormat);
 
-        var date = d.getMonth() + 1 + "/" + d.getDate() + "/" + d.getFullYear();
+        var month = "0" + (d.getMonth() + 1);
+        month = month.slice(month.length - 2);
+
+        var day = "0" + d.getDate();
+        day = day.slice(day.length - 2);
+
+        var date = month + "/" + day + "/" + d.getFullYear();
         var time = d.toLocaleString('en-US', {
             hour: 'numeric',
             minute: 'numeric',
@@ -54,19 +60,72 @@ var helpers = {
     },
 
     listTransactions: function (result) {
-        var place =  $('#dash');
+        var place = $('#dash');
         place.html('');
-        place.append('<div id="headers" class="horizontal-flex-box headers width-100"><div class="tenth">Category</div><div class="third">Notes</div><div class="fifth">Date</div><div class="tenth">Wallet</div><div class="tenth">Amount</div></div>');
 
         if (result !== '') {
+            var income = 0;
+            var expense = 0;
             $.each(result, function (k, v) {
                 var colorClass = null;
-                if (v.category.type.id === 1) colorClass = "income";
-                else if (v.category.type.id === 2) colorClass = "expense";
+                if (v.category.type.id === 1) {
+                    colorClass = "income";
+                    income += v.amount;
+                } else if (v.category.type.id === 2) {
+                    colorClass = "expense";
+                    expense += v.amount;
+                }
                 var date = helpers.formatDate(v.time);
-                place.append('<div class="horizontal-flex-box width-100 ' + colorClass + '" value="' + v.id + '"><div class="tenth">' + v.category.name + '</div><div class="third">' + v.notes + '</div><div class="fifth">' + date + '</div><div class="tenth">' + v.wallet.name + '</div><div class="tenth">' + v.amount + '</div></div>');
+                place.append('<div class="horizontal-flex-box width-100 ' + colorClass + '" value="' + v.id + '"><div class="tenth">' + v.category.name + '</div><div class="third">' + v.notes + '</div><div class="fifth">' + date + '</div><div class="tenth">' + v.wallet.name + '</div><div class="tenth colored">' + v.amount + '</div></div>');
+                helpers.updateChart(income, -expense);
             });
         }
+    },
+
+    updateChart: function (income, expense) {
+        var incomePercentage = Math.round(income / (income + expense) * 100);
+        var max = Math.max(income, expense);
+
+        var width = $("#full-dash").width()-$("#dash-form").width();
+
+        function createChart() {
+            $("#dash-chart").kendoChart({
+                chartArea: {
+                    width: width,
+                    height: 40
+                },
+                legend: {
+                    visible: false
+                },
+                seriesDefaults: {
+                    type: "bar",
+                    stack: {
+                        type: "100%"
+                    }
+                },
+                series: [{
+                    name: "Income",
+                    data: [income],
+                    color: "#4caf50"
+                }, {
+                    name: "Expense",
+                    data: [expense],
+                    color: "#ee5315"
+                }],
+                valueAxis: {
+                    visible: false
+                },
+                categoryAxis: {
+                    visible: false
+                },
+                tooltip: {
+                    visible: true,
+                    template: "#= series.name #: #= value #"
+                }
+            });
+        }
+
+        createChart();
     },
 
     fillEditMenu: function (data) {
@@ -114,6 +173,7 @@ $("#add-transaction-form").submit(function (e) {
 
     e.preventDefault();
     $(this).trigger('reset');
+    $('.dtp').val(helpers.formatDate(new Date()));
 });
 
 $('#edit-transaction-button').on('click', function (e) {
@@ -225,7 +285,7 @@ $.ajax({
 
 $('#dash-select-wallet, #dash-select-category, #from-date, #to-date').on('change', submitDash);
 
-function submitDash(){
+function submitDash() {
     var $form = $('#dash-form');
     var url = $form.attr('action');
     var data = $form.serialize();
@@ -235,7 +295,7 @@ function submitDash(){
         type: "POST",
         url: url,
         data: data,
-        success: function(result){
+        success: function (result) {
             console.log(result);
             helpers.listTransactions(result);
         }
