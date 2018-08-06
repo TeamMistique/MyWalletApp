@@ -39,14 +39,18 @@ public class WalletController {
     }
 
     @RequestMapping(value = "/update", method = RequestMethod.PUT)
-    public void updateWallet(@RequestParam int id, @RequestParam String name, @RequestParam double balance){
+    public Wallet updateWallet(@RequestParam int id, @RequestParam String name, @RequestParam double balance){
         service.update(id, name, balance);
 
+        return service.getById(id);
     }
 
     @RequestMapping(value = "/delete", method = RequestMethod.DELETE)
-    public void deleteWallet(@RequestParam int id){
+    public Wallet deleteWallet(@RequestParam int id){
+        Wallet wallet = service.getById(id);
         service.delete(id);
+        System.out.println(wallet);
+        return wallet;
     }
 
     @ExceptionHandler

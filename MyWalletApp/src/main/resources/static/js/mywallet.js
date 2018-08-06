@@ -425,8 +425,9 @@ $(document).ready(function () {
                 parameterMap: function(data, type) {
                     if(type=="update"){
                         return{
-                            name: data.models[0].name,
-                            balance: data.models[0].balance
+                            id: data.id,
+                            name: data.name,
+                            balance: data.balance
                         }
                     } else if(type=="destroy"){
                         return{
@@ -434,13 +435,13 @@ $(document).ready(function () {
                         }
                     } else if(type=="create"){
                         return {
-                            name: data.models[0].name,
-                            balance: data.models[0].balance
+                            name: data.name,
+                            balance: data.balance
                         }
                     }
                 }
             },
-            batch: true,
+            batch: false,
             pageSize: 20,
             schema: {
                 model: {
@@ -450,7 +451,10 @@ $(document).ready(function () {
                         name: { validation: { required: true } },
                         balance: { type: "number", validation: { required: true } }
                     }
-                }
+                },
+                // errors: function(a){
+                //     return true;
+                // }
             }
         });
 
