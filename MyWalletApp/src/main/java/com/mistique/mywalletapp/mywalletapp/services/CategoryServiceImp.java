@@ -30,15 +30,9 @@ public class CategoryServiceImp implements CategoryService {
     }
 
     @Override
-    public void update(int id, String name) {
+    public void update(int id, String name, Type type) {
         Category category = repository.findById(id);
         category.setName(name);
-        repository.update(id, category);
-    }
-
-    @Override
-    public void update(int id, Type type) {
-        Category category = repository.findById(id);
         category.setType(type);
         repository.update(id, category);
     }

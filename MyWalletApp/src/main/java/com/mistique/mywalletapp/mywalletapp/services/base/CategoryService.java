@@ -11,9 +11,7 @@ public interface CategoryService {
 
     Category getById(int id);
 
-    void update(int id, String name);
-
-    void update(int id, Type type);
+    void update(int id, String name, Type type);
 
     void create(String name, Type type);
 

@@ -34,16 +34,10 @@ public class CategoryController {
 
     @RequestMapping(value = "/update/{id}", method = RequestMethod.PUT)
     public void updateCategory(@PathVariable("id") String idString, @RequestParam(value = "name", required = false) String name,
-                               @RequestParam(value = "type", required = false) Integer typeId) {
+                               @RequestParam(value = "typeId", required=false) Integer typeId) {
         int id = Integer.parseInt(idString);
-        if (name != null) {
-            service.update(id, name);
-        }
-
-        if (typeId != null) {
-            Type type = typeService.getById(typeId);
-            service.update(id, type);
-        }
+        Type type = typeService.getById(typeId);
+        service.update(id, name, type);
     }
 
     @RequestMapping(value = "delete/{id}", method = RequestMethod.DELETE)
