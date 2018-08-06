@@ -86,7 +86,7 @@ var helpers = {
         var incomePercentage = Math.round(income / (income + expense) * 100);
         var max = Math.max(income, expense);
 
-        var width = $("#full-dash").width()-$("#dash-form").width();
+        var width = $("#full-dash").width() - $("#dash-form").width();
 
         function createChart() {
             $("#dash-chart").kendoChart({
@@ -189,6 +189,21 @@ $('#edit-transaction-button').on('click', function (e) {
         data: data,
         success: function () {
             updateDashboard();
+        }
+    });
+});
+
+$('#delete-transaction-button').on('click', function (e) {
+    e.preventDefault();
+    var url = '/mywallet/transactions/delete/' + $('#right-edit').val();
+
+    $.ajax({
+        type: "DELETE",
+        url: url,
+        success: function () {
+            updateDashboard();
+            $('#right-add').removeClass('hidden');
+            $('#right-edit').addClass('hidden');
         }
     });
 });
@@ -296,7 +311,6 @@ function submitDash() {
         url: url,
         data: data,
         success: function (result) {
-            console.log(result);
             helpers.listTransactions(result);
         }
     });
