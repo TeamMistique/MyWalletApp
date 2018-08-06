@@ -415,7 +415,7 @@ $(document).ready(function () {
                     url: walletsBaseUrl + "/update",
                 },
                 destroy: {
-                    type: "DELETE",
+                    type: "POST",
                     url: walletsBaseUrl + "/delete",                                                      
                 },
                 create: {

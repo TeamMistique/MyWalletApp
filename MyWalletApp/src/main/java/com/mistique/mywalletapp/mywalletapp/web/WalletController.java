@@ -45,7 +45,7 @@ public class WalletController {
         return service.getById(id);
     }
 
-    @RequestMapping(value = "/delete", method = RequestMethod.DELETE)
+    @RequestMapping(value = "/delete", method = RequestMethod.POST)
     public Wallet deleteWallet(@RequestParam int id){
         Wallet wallet = service.getById(id);
         service.delete(id);
