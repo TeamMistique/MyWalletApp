@@ -1,5 +1,6 @@
 $(document).ready(function () {
     updateDashboard();
+    fillCategoriesBox();
 });
 
 $('.sidenav a').on('click', function (e) {
@@ -152,11 +153,32 @@ var helpers = {
                 } else {
                     list = listExpense;
                 }
-                list.append('<div class="category-style" value="' + v.id + '">' + v.name + '</div>');
+                var html = "";
+                html += '<div class="category-style" value="' + v.id + '">';
+                html += '<div class="category-name">' + v.name + '<i class="fas fa-pencil-alt pencil"></i></div>';
+                html += '<form class="edit-category-form hide" method="PUT" action="/mywallet/categories/update/' + v.id + '">';
+                html += '<input class="edit-category-name" name="name" type="text" value="' + v.name + '"></input>';
+                html += '<button class="save-edit-category tiny-margin no-stretch"><i class="far fa-save"></i></button>';
+                html += '<button class="delete-category tiny-margin no-stretch">';
+                html += '<i class="fas fa-trash-alt"></i>';
+                html += '</button>'
+                html += '</form>'
+                html += '</div>'
+                list.prepend(html);
+                initializeCallbacks();
             });
         }
     }
 };
+
+function initializeCallbacks() {
+    $(".pencil").on('click', function (e) {
+        $(e.target).parent().addClass('hide');
+       // debugger;
+        $(e.target).parent().next().removeClass('hide');
+    });
+}
+
 
 $("#add-transaction-form").submit(function (e) {
     var data = $(this).serialize();
@@ -286,16 +308,34 @@ $('#center').on('click', function () {
     $('#right-edit').addClass('hidden');
 });
 
-$.ajax({
-    type: "POST",
-    url: "/mywallet/categories/",
-    success: function (data) {
-        helpers.listCategories(
-            data,
-            $('#list-income-categories'),
-            $('#list-expense-categories')
-        );
-    }
+function fillCategoriesBox() {
+    $.ajax({
+        type: "POST",
+        url: "/mywallet/categories/",
+        success: function (data) {
+            helpers.listCategories(
+                data,
+                $('#list-income-categories'),
+                $('#list-expense-categories'),
+            );
+        }
+    });
+}
+
+$("#add-expense-category").on('click', function (e) {
+    var url = "/mywallet/categories/add";
+    var data = "name=New%20Category&typeId=2";
+    $.ajax({
+        type: "POST",
+        url: url,
+        data: data,
+        success: function () {
+            fillCategoriesBox();
+        }
+    });
+
+    e.preventDefault();
+    $(this).trigger('reset');
 });
 
 $('#dash-select-wallet, #dash-select-category, #from-date, #to-date').on('change', submitDash);
@@ -315,3 +355,42 @@ function submitDash() {
         }
     });
 }
+
+
+$("#add-income-category").on('click', function (e) {
+    var url = "/mywallet/categories/add";
+    var data = "name=New%20Category&typeId=1";
+    $.ajax({
+        type: "POST",
+        url: url,
+        data: data,
+        success: function () {
+            fillCategoriesBox();
+        }
+    });
+
+    e.preventDefault();
+    $(this).trigger('reset');
+});
+
+
+$('.save-edit-category').on('submit', function (e) {
+    e.preventDefault();
+
+    var form = $(this).closest('form');
+    var text = $(this).closest('input').attr('type');
+    var data = form.serialize();
+    var url = '/mywallet/categories/update/' + $('.category-style').val() + 'name='+ text;
+    // console.log(data);
+    // console.log(JSON.stringify(data));
+    console.log('category id is ' + $('.category-style').val());
+
+    $.ajax({
+        type: "PUT",
+        url: url,
+        data: data,
+        success: function () {
+            fillCategoriesBox();
+        }
+    });
+});

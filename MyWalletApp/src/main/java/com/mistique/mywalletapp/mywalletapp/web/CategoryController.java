@@ -9,6 +9,8 @@ import org.springframework.http.HttpStatus;
 import org.springframework.http.ResponseEntity;
 import org.springframework.web.bind.annotation.*;
 
+import java.text.ParseException;
+import java.util.Date;
 import java.util.List;
 
 @RestController
@@ -25,6 +27,12 @@ public class CategoryController {
     @RequestMapping("/")
     public List<Category> getAll() {
         return service.getAll();
+    }
+
+    @RequestMapping(value = "/add", method = RequestMethod.POST)
+    public void create(@RequestParam String name, @RequestParam Integer typeId) {
+        Type type  = typeService.getById(typeId);
+        service.create(name, type);
     }
 
     @RequestMapping(value = "/{id}", method = RequestMethod.GET)
