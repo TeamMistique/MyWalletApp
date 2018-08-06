@@ -24,31 +24,24 @@ public class WalletController {
         return service.listAll();
     }
 
-    @RequestMapping("/{id}")
-    public Wallet getById(@PathVariable("id") String id){
-        return service.getById(Integer.parseInt(id));
+    @RequestMapping("/get")
+    public Wallet getById(@RequestParam int id){
+        return service.getById(id);
     }
 
     @RequestMapping(value = "/add", method = RequestMethod.POST)
-    public void addWallet(@RequestParam("name") String name){
+    public void addWallet(@RequestParam String name){
         service.create(name, 0);
     }
 
-    @RequestMapping(value = "/update/{id}", method = RequestMethod.PUT)
-    public void updateWallet(@PathVariable("id") String id, @RequestParam(value = "name", required = false) String name, @RequestParam(value = "balance", required = false) String balance){
-        int idInt = Integer.parseInt(id);
-        if(name!=null){
-            service.update(idInt, name);
-        }
-        if(balance!=null){
-            double doubleBalance = Double.parseDouble(balance);
-            service.update(idInt, doubleBalance);
-        }
+    @RequestMapping(value = "/update", method = RequestMethod.PUT)
+    public void updateWallet(@RequestParam int id, @RequestParam String name, @RequestParam double balance){
+        service.update(id, name, balance);
     }
 
-    @RequestMapping(value = "delete/{id}", method = RequestMethod.DELETE)
-    public void deleteWallet(@PathVariable("id") String id){
-        service.delete(Integer.parseInt(id));
+    @RequestMapping(value = "/delete", method = RequestMethod.DELETE)
+    public void deleteWallet(@RequestParam int id){
+        service.delete(id);
     }
 
     @ExceptionHandler

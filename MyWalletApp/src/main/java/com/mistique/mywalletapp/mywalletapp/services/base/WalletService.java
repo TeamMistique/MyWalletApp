@@ -11,9 +11,7 @@ public interface WalletService {
 
     Wallet getById(int id);
 
-    void update(int id, String name);
-
-    void update(int id, double balance);
+    void update(int id, String name, double balance);
 
     void delete(int id);
 }

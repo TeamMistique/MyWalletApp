@@ -34,15 +34,9 @@ public class WalletServiceImpl implements WalletService {
     }
 
     @Override
-    public void update(int id, String name) {
+    public void update(int id, String name, double balance) {
         Wallet wallet = repository.findById(id);
         wallet.setName(name);
-        repository.update(id, wallet);
-    }
-
-    @Override
-    public void update(int id, double balance) {
-        Wallet wallet = repository.findById(id);
         wallet.setBalance(balance);
         repository.update(id, wallet);
     }

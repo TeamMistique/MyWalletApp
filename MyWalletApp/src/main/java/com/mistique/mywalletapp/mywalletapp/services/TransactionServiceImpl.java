@@ -33,7 +33,7 @@ public class TransactionServiceImpl implements TransactionService {
 
         Transaction transaction = new Transaction(amount, time, wallet, category, notes);
         repository.create(transaction);
-        walletService.update(wallet.getId(), wallet.getBalance()+transaction.getAmount());
+        walletService.update(wallet.getId(), wallet.getName(), wallet.getBalance()+transaction.getAmount());
     }
 
     @Override
@@ -82,12 +82,12 @@ public class TransactionServiceImpl implements TransactionService {
         //Set the original transaction's wallet's balance to the way it was prior to that transaction.
         Wallet oldWallet = originalTransaction.getWallet();
         double newBalance = oldWallet.getBalance()-originalTransaction.getAmount();
-        walletService.update(oldWallet.getId(), newBalance);
+        walletService.update(oldWallet.getId(), oldWallet.getName(), newBalance);
 
         //Set the new wallet's balance.
         Wallet newWallet = updatedTransaction.getWallet();
         newBalance = newWallet.getBalance()+updatedTransaction.getAmount();
-        walletService.update(newWallet.getId(), newBalance);
+        walletService.update(newWallet.getId(), newWallet.getName(), newBalance);
 
         //Update the transaction.
         repository.update(id, updatedTransaction);
@@ -97,7 +97,7 @@ public class TransactionServiceImpl implements TransactionService {
     public void delete(int id) {
         Transaction transaction = repository.findById(id);
         Wallet wallet = transaction.getWallet();
-        walletService.update(wallet.getId(), wallet.getBalance()-transaction.getAmount());
+        walletService.update(wallet.getId(), wallet.getName(), wallet.getBalance()-transaction.getAmount());
 
         repository.delete(id);
     }

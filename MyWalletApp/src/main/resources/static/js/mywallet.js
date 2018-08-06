@@ -203,6 +203,7 @@ $('#edit-transaction-button').on('click', function (e) {
 
     var form = $(this).closest('form');
     var data = form.serialize();
+    console.log(data);
     var url = '/mywallet/transactions/update/' + $('#right-edit').val();
 
     $.ajax({
@@ -380,9 +381,8 @@ $('.save-edit-category').on('submit', function (e) {
     var form = $(this).closest('form');
     var text = $(this).closest('input').attr('type');
     var data = form.serialize();
+    console.log(data);
     var url = '/mywallet/categories/update/' + $('.category-style').val() + 'name='+ text;
-    // console.log(data);
-    // console.log(JSON.stringify(data));
     console.log('category id is ' + $('.category-style').val());
 
     $.ajax({
@@ -394,3 +394,69 @@ $('.save-edit-category').on('submit', function (e) {
         }
     });
 });
+var serialize = function(obj) {
+    var str = [];
+    for (var p in obj)
+      if (obj.hasOwnProperty(p)) {
+        str.push(encodeURIComponent(p) + "=" + encodeURIComponent(obj[p]));
+      }
+    return str.join("&");
+  };
+
+$(document).ready(function () {
+    var walletsBaseUrl = "/mywallet/wallets",
+        walletsDataSource = new kendo.data.DataSource({
+            transport: {
+                read:  {
+                    url: walletsBaseUrl + "/",                                                      
+                },
+                update: {
+                    type: "PUT",
+                    url: walletsBaseUrl + "/update",
+                },
+                destroy: {
+                    type: "DELETE",
+                    url: walletsBaseUrl + "/delete",                                                      
+                },
+                create: {
+                    type:"POST",
+                    url: walletsBaseUrl + "/add",                                                       
+                },
+                parameterMap: function(options, operation) {
+                    if (operation !== "read" && options.models) {
+                        // debugger;
+                        var data = options.models[0];
+                        var serialized = serialize(data);
+                        console.log(serialized);
+                        return {serialized};
+                    }
+                }
+            },
+            batch: true,
+            pageSize: 20,
+            schema: {
+                model: {
+                    id: "id",
+                    fields: {
+                        id: { editable: false },
+                        name: { validation: { required: true } },
+                        balance: { type: "number", validation: { required: true } }
+                    }
+                }
+            }
+        });
+
+        
+
+    $("#wallets-grid").kendoGrid({
+        dataSource: walletsDataSource,
+        pageable: true,
+        height: 550,
+        toolbar: [{name:"create", text:"Add new wallet"}],
+        columns: [
+            { field:"name", title: "Wallet Name" },
+            { field: "balance", title:"Balance", width: "120px" },                           
+            { command: ["edit", "destroy"], title: "&nbsp;", width: "250px" }],
+        editable: "popup"
+    });
+});               
