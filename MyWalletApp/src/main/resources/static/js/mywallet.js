@@ -422,13 +422,21 @@ $(document).ready(function () {
                     type:"POST",
                     url: walletsBaseUrl + "/add",                                                       
                 },
-                parameterMap: function(options, operation) {
-                    if (operation !== "read" && options.models) {
-                        // debugger;
-                        var data = options.models[0];
-                        var serialized = serialize(data);
-                        console.log(serialized);
-                        return {serialized};
+                parameterMap: function(data, type) {
+                    if(type=="update"){
+                        return{
+                            name: data.models[0].name,
+                            balance: data.models[0].balance
+                        }
+                    } else if(type=="destroy"){
+                        return{
+                            id: data.id
+                        }
+                    } else if(type=="create"){
+                        return {
+                            name: data.models[0].name,
+                            balance: data.models[0].balance
+                        }
                     }
                 }
             },

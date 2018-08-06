@@ -8,6 +8,7 @@ import org.springframework.http.ResponseEntity;
 import org.springframework.web.bind.annotation.*;
 
 import java.util.List;
+import java.util.stream.Collectors;
 
 @RestController
 @RequestMapping("/mywallet/wallets")
@@ -30,13 +31,17 @@ public class WalletController {
     }
 
     @RequestMapping(value = "/add", method = RequestMethod.POST)
-    public void addWallet(@RequestParam String name){
-        service.create(name, 0);
+    public Wallet addWallet(@RequestParam String name, @RequestParam double balance){
+        service.create(name, balance);
+
+        List<Wallet> wl = service.listAll().stream().filter(x-> x.getName().equals(name)).collect(Collectors.toList());
+        return wl.get(wl.size()-1);
     }
 
     @RequestMapping(value = "/update", method = RequestMethod.PUT)
     public void updateWallet(@RequestParam int id, @RequestParam String name, @RequestParam double balance){
         service.update(id, name, balance);
+
     }
 
     @RequestMapping(value = "/delete", method = RequestMethod.DELETE)
