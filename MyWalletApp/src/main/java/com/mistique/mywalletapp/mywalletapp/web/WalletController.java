@@ -49,7 +49,6 @@ public class WalletController {
     public Wallet deleteWallet(@RequestParam int id){
         Wallet wallet = service.getById(id);
         service.delete(id);
-        System.out.println(wallet);
         return wallet;
     }
 
