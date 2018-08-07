@@ -88,7 +88,16 @@ button{
 }
 
 .title{
-    font-size: 60pt;
+    font-family: 'BenchNine', sans-serif;
+    font-size: 170px;
+    margin-right: 30px;
+    color: darkslateblue;
+    text-transform: uppercase;
+    text-decoration: underline;
+}
+
+#wallets-visualizer{
+    flex: 1 0 auto;
 }
 
 .no-stretch{
@@ -331,4 +340,63 @@ div.category-name:hover > .pencil {
 
 }
 
+.grid-container{
+    width: 45%;
+}
 
+#walletsListView {
+    padding: 10px 5px;
+    margin-bottom: -1px;
+    max-height: 120px;
+    display: flex;
+    flex-flow: row;
+    justify-content: space-between;
+}
+.wallet {
+    /* float: left;
+    position: relative;
+    width: 200px; */
+    height: 70px;
+    margin: 5px;
+    padding: 10px;
+  display: flex;
+  flex-flow: row;
+  align-items: center;
+  justify-content: space-between;
+  border: 1px solid #999;
+  border-radius: 10px;
+  background-color: whitesmoke;
+  flex: 1 1 200px;
+}
+.wallet h3 {
+    font-family: 'BenchNine', sans-serif;
+    margin: 0;
+    padding: 3px 5px 0 0;
+    max-height: 60px;
+    overflow: hidden;            
+    font-size: 30px;
+    font-weight: normal;
+    text-transform: uppercase;
+    line-height: 1.5;
+    color: #999;
+    flex: 1 0 auto;
+}
+
+.wallet p{
+font-size: 30px;
+flex: 1 0 auto;
+text-align: right;
+}
+
+.k-listview:after {
+    content: ".";
+    display: block;
+    height: 0;
+    clear: both;
+    visibility: hidden;
+}
+
+header{
+    min-height: 170px;
+    margin-top: 20px;
+}

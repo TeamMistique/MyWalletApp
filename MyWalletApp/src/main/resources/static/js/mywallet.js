@@ -403,7 +403,7 @@ var serialize = function(obj) {
     return str.join("&");
   };
 
-$(document).ready(function () {
+$(function () {
     var walletsBaseUrl = "/mywallet/wallets",
         walletsDataSource = new kendo.data.DataSource({
             transport: {
@@ -452,9 +452,6 @@ $(document).ready(function () {
                         balance: { type: "number", validation: { required: true } }
                     }
                 },
-                // errors: function(a){
-                //     return true;
-                // }
             }
         });
 
@@ -469,6 +466,26 @@ $(document).ready(function () {
             { field:"name", title: "Wallet Name" },
             { field: "balance", title:"Balance", width: "120px" },                           
             { command: ["edit", "destroy"], title: "&nbsp;", width: "250px" }],
-        editable: "popup"
+        editable: "inline"
     });
-});               
+}); 
+
+$(function() {
+    var dataSource = new kendo.data.DataSource({
+        transport: {
+            read: {
+                url: "/mywallet/wallets/",                
+            }
+        },
+        pageSize: 5
+    });
+
+    $("#walletsPager").kendoPager({
+        dataSource: dataSource
+    });
+
+    $("#walletsListView").kendoListView({
+        dataSource: dataSource,
+        template: kendo.template($("#walletTemplate").html())
+    });
+});
