@@ -30,27 +30,31 @@ public class CategoryController {
     }
 
     @RequestMapping(value = "/add", method = RequestMethod.POST)
-    public void create(@RequestParam String name, @RequestParam Integer typeId) {
+    public Category create(@RequestParam String name, @RequestParam Integer typeId) {
         Type type  = typeService.getById(typeId);
         service.create(name, type);
+        List<Category> categories = service.getAll();
+        return categories.get(categories.size()-1);
     }
 
-    @RequestMapping(value = "/{id}", method = RequestMethod.GET)
-    public Category getById(@PathVariable("id") String id) {
-        return service.getById(Integer.parseInt(id));
+    @RequestMapping(value = "/get", method = RequestMethod.GET)
+    public Category getById(@RequestParam int id) {
+        return service.getById(id);
     }
 
-    @RequestMapping(value = "/update/{id}", method = RequestMethod.PUT)
-    public void updateCategory(@PathVariable("id") String idString, @RequestParam(value = "name", required = false) String name,
-                               @RequestParam(value = "typeId", required=false) Integer typeId) {
-        int id = Integer.parseInt(idString);
+    @RequestMapping(value = "/update", method = RequestMethod.PUT)
+    public Category updateCategory(@RequestParam int id , @RequestParam String name,
+                               @RequestParam int typeId) {
         Type type = typeService.getById(typeId);
         service.update(id, name, type);
+        return service.getById(id);
     }
 
-    @RequestMapping(value = "delete/{id}", method = RequestMethod.DELETE)
-    public void deleteCategory(@PathVariable("id") String id) {
-        service.delete(Integer.parseInt(id));
+    @RequestMapping(value = "/delete", method = RequestMethod.DELETE)
+    public Category deleteCategory(@RequestParam int id) {
+        Category category = service.getById(id);
+        service.delete(id);
+        return category;
     }
 
 
