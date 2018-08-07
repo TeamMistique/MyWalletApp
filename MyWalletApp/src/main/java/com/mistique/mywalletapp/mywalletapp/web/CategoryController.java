@@ -50,7 +50,7 @@ public class CategoryController {
         return service.getById(id);
     }
 
-    @RequestMapping(value = "/delete", method = RequestMethod.DELETE)
+    @RequestMapping(value = "/delete", method = RequestMethod.POST)
     public Category deleteCategory(@RequestParam int id) {
         Category category = service.getById(id);
         service.delete(id);
