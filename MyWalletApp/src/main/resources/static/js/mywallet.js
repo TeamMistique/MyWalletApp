@@ -515,14 +515,6 @@ $(function () {
     });
 });
 
-var types = [{
-    "value": 1,
-    "text": "Income"
-}, {
-    "value": 2,
-    "text": "Expense"
-}];
-
 $(document).ready(function () {
     var dataSource = new kendo.data.DataSource({
         pageSize: 20,
@@ -547,7 +539,7 @@ $(document).ready(function () {
                     return {
                         id: data.id,
                         name: data.name,
-                        typeId: data.typeId
+                        typeId: data.type.id
                     }
                 } else if (type == "destroy") {
                     return {
@@ -556,15 +548,16 @@ $(document).ready(function () {
                 } else if (type == "create") {
                     return {
                         name: data.name,
-                        typeId: data.typeId
+                        typeId: data.type.id
                     }
                 }
             }
         },
+        //   batch: false,
         autoSync: true,
         schema: {
             model: {
-                id: "id",
+                id: "ProductID",
                 fields: {
                     id: {
                         editable: false
@@ -574,40 +567,55 @@ $(document).ready(function () {
                             required: true
                         }
                     },
-                    typeId: {
-                        field: "typeId",
-                        type: "number",
-                        defaultValue: 1
+                    type: {
+                        defaultValue: {
+                            id: 1,
+                            name: "Income"
+                        }
                     },
                 }
             }
         }
-
     });
 
-    $("#categories-grid").kendoGrid({
+    $("#grid").kendoGrid({
         dataSource: dataSource,
-        filterable: true,
-        groupable: true,
         pageable: true,
-        height: 540,
+        height: 550,
         toolbar: ["create"],
         columns: [{
                 field: "name",
                 title: "Category Name"
             },
             {
-                field: "typeId",
-                width: "200px",
-                values: types,
-                title: "Type"
+                field: "type",
+                title: "Type",
+                width: "180px",
+                editor: categoryDropDownEditor,
+                template: "#=type.name#"
             },
             {
-                command: ["edit", "destroy"],
-                title: "&nbsp;",
-                width: "250px"
+                command: "destroy",
+                title: " ",
+                width: "150px"
             }
         ],
         editable: "inline"
     });
 });
+
+function categoryDropDownEditor(container, options) {
+    $('<input required name="' + options.field + '"/>')
+        .appendTo(container)
+        .kendoDropDownList({
+            autoBind: false,
+            dataTextField: "name",
+            dataValueField: "id",
+            dataSource: {
+                // type: "odata",
+                transport: {
+                    read: "/mywallet/types/"
+                }
+            }
+        });
+}

@@ -34,7 +34,7 @@ public class WalletController {
     public Wallet addWallet(@RequestParam String name, @RequestParam double balance){
         service.create(name, balance);
 
-        List<Wallet> wl = service.listAll().stream().filter(x-> x.getName().equals(name)).collect(Collectors.toList());
+        List<Wallet> wl = service.listAll();
         return wl.get(wl.size()-1);
     }
 
