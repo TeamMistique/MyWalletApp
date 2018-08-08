@@ -546,6 +546,7 @@ $(document).ready(function () {
                         id: data.id
                     }
                 } else if (type == "create") {
+                    console.log(data.name + "   " + data.type.id);
                     return {
                         name: data.name,
                         typeId: data.type.id
@@ -553,11 +554,11 @@ $(document).ready(function () {
                 }
             }
         },
-        //   batch: false,
+        batch: false,
         autoSync: true,
         schema: {
             model: {
-                id: "ProductID",
+                id: "id",
                 fields: {
                     id: {
                         editable: false
@@ -582,7 +583,10 @@ $(document).ready(function () {
         dataSource: dataSource,
         pageable: true,
         height: 550,
-        toolbar: ["create"],
+        toolbar: [{
+            name: "create",
+            text: "Add new category"
+        }],
         columns: [{
                 field: "name",
                 title: "Category Name"
@@ -600,7 +604,7 @@ $(document).ready(function () {
                 width: "150px"
             }
         ],
-        editable: "inline"
+        editable: true
     });
 });
 
@@ -612,7 +616,7 @@ function categoryDropDownEditor(container, options) {
             dataTextField: "name",
             dataValueField: "id",
             dataSource: {
-                // type: "odata",
+                type: "odata",
                 transport: {
                     read: "/mywallet/types/"
                 }
