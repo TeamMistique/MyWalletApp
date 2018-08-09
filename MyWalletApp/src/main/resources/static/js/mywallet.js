@@ -183,6 +183,9 @@ function initializeCallbacks() {
 $("#add-transaction-form").submit(function (e) {
     var data = $(this).serialize();
     var url = $(this).attr('action');
+    console.log($(this));
+    console.log(url);
+    console.log(data);
 
     $.ajax({
         type: "POST",
@@ -486,12 +489,12 @@ $(function () {
                 width: "120px"
             },
             {
-                command: "destroy",
-                title: " ",
-                width: "150px"
+                command: ["edit", "destroy"],
+                title: "&nbsp;",
+                width: "250px"
             }
         ],
-        editable: true,
+        editable: "inline",
     });
 });
 
@@ -555,7 +558,7 @@ $(document).ready(function () {
             }
         },
         batch: false,
-        autoSync: true,
+        // autoSync: true,
         schema: {
             model: {
                 id: "id",
@@ -599,12 +602,12 @@ $(document).ready(function () {
                 template: "#=type.name#"
             },
             {
-                command: "destroy",
-                title: " ",
-                width: "150px"
+                command: ["edit", "destroy"],
+                title: "&nbsp;",
+                width: "250px"
             }
         ],
-        editable: true
+        editable: "inline"
     });
 });
 
