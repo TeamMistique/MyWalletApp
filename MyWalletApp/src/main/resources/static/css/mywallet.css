@@ -18,7 +18,7 @@ body{
 }
 
 .main-page {
-    margin-left: 3%;
+    float: right;
     width: 97%;
     height: 100%;
 }
@@ -352,4 +352,36 @@ header{
     left: 10px;
     top: 10px;
     color: darkslateblue;
+}
+
+
+@media screen and (max-width:1079px){
+    .main-page{
+        width: 100%;
+    }
+}
+
+.main-page2 {
+    float: right;
+    width: 94%;
+    height: 100%;
+    margin-right: 3%;
+}
+
+#wallets-grid {
+    margin-right: 1%; 
+}
+
+#grid {
+    margin-left: 1%; 
+}
+
+.height-96 {
+    height: 96%;
+}
+
+.grid-title{
+    color: darkslateblue;
+    font-family: 'BenchNine', sans-serif;
+    font-size: 40pt;
 }
