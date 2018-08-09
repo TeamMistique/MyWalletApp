@@ -616,9 +616,21 @@ function categoryDropDownEditor(container, options) {
             dataTextField: "name",
             dataValueField: "id",
             dataSource: {
-                type: "odata",
                 transport: {
                     read: "/mywallet/types/"
+                },
+                schema: {
+                    model: {
+                        id: "id",
+                        fields: {
+                            id: {
+                                editable: false
+                            },
+                            name: {
+                                editable: false
+                            }
+                        }
+                    }
                 }
             }
         });
