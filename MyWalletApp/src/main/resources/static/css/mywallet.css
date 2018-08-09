@@ -396,3 +396,11 @@ header{
     min-height: 170px;
     margin-top: 20px;
 }
+
+.settings {
+    position: absolute;
+    font-size: 50px;
+    left: 10px;
+    top: 10px;
+    color: darkslateblue;
+}

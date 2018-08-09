@@ -3,26 +3,21 @@ $(document).ready(function () {
     fillCategoriesBox();
 });
 
-$('.sidenav a').on('click', function (e) {
+$('#settings').on('click', function (e) {
     e.preventDefault();
-    $('.sidenav a').removeClass('active');
-    if ($(this).attr('id') !== "closebtn") {
-        $(this).addClass('active');
-        var id = $(this).attr('id');
-        var menu = id.substring(5);
-        $('body > div').hide();
-        $('#' + menu + '-page').show();
-    }
-    closeNav();
+    $('#wallets-page').removeClass('hide');
+    $('#home').removeClass('hide');
+    $('#main-page').addClass('hide');
+    
 });
 
-function openNav() {
-    $('#sidenav').css('width', '250px');
-}
-
-function closeNav() {
-    $('#sidenav').css('width', '0');
-}
+$('#home').on('click', function (e) {
+    e.preventDefault();
+    $('#main-page').removeClass('hide');  
+    $('#home').addClass('hide');
+    $('#wallets-page').addClass('hide');
+      
+});
 
 var helpers = {
     buildDropdown: function (result, dropdown, emptyMessage) {
