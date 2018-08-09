@@ -486,12 +486,12 @@ $(function () {
                 width: "120px"
             },
             {
-                command: ["edit", "destroy"],
-                title: "&nbsp;",
-                width: "250px"
+                command: "destroy",
+                title: " ",
+                width: "150px"
             }
         ],
-        editable: "inline"
+        editable: true,
     });
 });
 
