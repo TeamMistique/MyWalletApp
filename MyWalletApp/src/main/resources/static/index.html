@@ -13,7 +13,7 @@
     <link rel="stylesheet" href="https://kendo.cdn.telerik.com/2018.2.620/styles/kendo.material.min.css" />
     <link rel="stylesheet" href="https://kendo.cdn.telerik.com/2018.2.620/styles/kendo.material.mobile.min.css" />
     <link href="https://fonts.googleapis.com/css?family=BenchNine:300" rel="stylesheet">
-   
+
     <script src="https://code.jquery.com/jquery-3.3.1.min.js" integrity="sha256-FgpCb/KJQlLNfOu91ta32o/NMZxltwRo8QtmkMRdAu8="
         crossorigin="anonymous"></script>
     <script src="js/jquery.min.js"></script>
@@ -24,15 +24,10 @@
 
 <body>
 
-    <nav id="sidenav" class="sidenav">
-        <a href="javascript:void(0)" id="closebtn" class="closebtn" onclick="closeNav()">&times;</a>
-        <a href="" id="show-main">Home</a>
-        <a href="" id="show-wallets">Wallets</a>
-        <a href="" id="show-categories">Categories</a>
-    </nav>
-    <span id="side-menu" class="side-menu" onclick="openNav()">&#9776;</span>
-
     <div id="main-page" class="main-page horizontal-flex-box">
+        <a href="#wallets-page" id="settings" class="settings">
+            <i class="fas fa-cog setting-btn"></i>
+        </a>
         <div id="center" class="flex-box stretch-both full-height">
             <header class="horizontal-flex-box full-dash">
                 <div id="title" class="title no-stretch">Dashboard</div>
@@ -145,7 +140,11 @@
         </div>
     </div>
 
-    <div id="wallets-page" class="main-page">
+    <div id="wallets-page" class="main-page hide">
+        <a href="#wallets-page" id="home" class="settings">
+            <i class="fas fa-home home-btn"></i>
+        </a>
+
         <div class="flex-box full-height">
             <div>Manage your wallets here.</div>
             <div class="grid-container horizontal-flex-box">
@@ -154,48 +153,6 @@
             </div>
         </div>
     </div>
-
-    <div id="categories-page" class="main-page flex-box2">
-        <div id="categories-page-title" class="title page-title">Categories</div>
-        <div id="" class="categories-box horizontal-flex-box">
-            <div id="expenses-column" class="category-column flex-box2 full-height">
-                <div id="expense-title" class="my-header border-line no-stretch">Expense
-                    <button id="add-expense-category" class="add-category">
-                        <i class="fas fa-plus"></i>
-                    </button>
-                </div>
-
-                <div id="list-expense-categories" class="list-categories stretch-both">
-                    <div class="category-style">Food</div>
-                    <div class="category-style">Food</div>
-                    <div class="category-style">Food</div>
-                    <div class="category-style">Food</div>
-                    <div class="category-style">Food</div>
-                </div>
-
-            </div>
-
-            <div id="income-column" class="category-column flex-box2 full-height">
-                <div id="income-title" class="my-header border-line no-stretch">Income
-                    <button id="add-income-category" class="add-category">
-                        <i class="fas fa-plus"></i>
-                    </button>
-                </div>
-
-
-                <div id="list-income-categories" class="list-categories stretch-both">
-                    <div class="category-style">Food</div>
-                    <div class="category-style">Food</div>
-                    <div class="category-style">Food</div>
-                    <div class="category-style">Food</div>
-                    <div class="category-style">Food</div>
-                    <div class="category-style">Food</div>
-                </div>
-
-            </div>
-        </div>
-    </div>
-
 
     <script src="js/mywallet.js"></script>
 </body>
