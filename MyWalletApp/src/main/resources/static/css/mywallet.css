@@ -92,7 +92,7 @@ button{
 
 .title{
     font-family: 'BenchNine', sans-serif;
-    font-size: 170px;
+    font-size: 8vw;
     margin-right: 30px;
     color: darkslateblue;
     text-transform: uppercase;
@@ -371,8 +371,19 @@ header{
     margin-right: 3%;
 }
 
+.flex-box-js{
+    display: flex;
+    flex-direction: column;
+    justify-content: flex-start;
+    align-items: center;
+}
+
 #wallets-grid {
     margin-right: 1%; 
+}
+
+.grid-container{
+    flex-grow: 1;
 }
 
 #grid {
