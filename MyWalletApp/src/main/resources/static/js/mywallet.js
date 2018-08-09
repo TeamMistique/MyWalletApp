@@ -440,6 +440,7 @@ $(function () {
                 }
             },
             batch: false,
+            autoSync: true,
             pageSize: 20,
             schema: {
                 model: {
@@ -484,12 +485,12 @@ $(function () {
                 width: "120px"
             },
             {
-                command: ["edit", "destroy"],
-                title: "&nbsp;",
-                width: "250px"
+                command: "destroy",
+                title: " ",
+                width: "150px"
             }
         ],
-        editable: "inline",
+        editable: true
     });
 });
 
@@ -553,7 +554,7 @@ $(document).ready(function () {
             }
         },
         batch: false,
-        // autoSync: true,
+        autoSync: true,
         schema: {
             model: {
                 id: "id",
@@ -597,12 +598,12 @@ $(document).ready(function () {
                 template: "#=type.name#"
             },
             {
-                command: ["edit", "destroy"],
-                title: "&nbsp;",
-                width: "250px"
+                command: "destroy",
+                title: " ",
+                width: "150px"
             }
         ],
-        editable: "inline"
+        editable: true
     });
 });
 

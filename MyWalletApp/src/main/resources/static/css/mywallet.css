@@ -21,6 +21,8 @@ body{
     margin-left: 3%;
     width: 97%;
     height: 100%;
+    overflow: hidden;
+    justify-content: space-between !important;
 }
 
 .flex-box {
@@ -52,6 +54,7 @@ body{
 
 .full-height{
     height: 100%;
+    box-sizing: border-box;
 }
 
 .pretty-input{
